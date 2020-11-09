@@ -1,0 +1,40 @@
+#head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $primary-color;
+    color: white;
+
+    .logo {
+        font-size: 40px;
+        margin-left: 20px;
+    }
+}
+
+.logo {
+    font-family: $logo-font;
+    @extend %noselect;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.new-project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    padding: 10px;
+    height: 15px;
+
+    font-family: $roboto-font;
+    @extend %noselect;
+
+    background-color: green;
+    border-radius: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+    
