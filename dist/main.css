@@ -403,13 +403,22 @@ body {
   align-items: center;
   margin-right: 20px;
   padding: 10px;
-  height: 15px;
+  height: 10px;
+  width: 10px;
   font-family: "Roboto", sans-serif;
   background-color: green;
   border-radius: 20px;
 }
 .new-project:hover {
   cursor: pointer;
+  width: 115px;
+  transition: width 0.5s ease;
+}
+.new-project:hover::before {
+  content: "New Project ";
+  white-space: nowrap;
+  white-space: pre;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=main.css.map */
