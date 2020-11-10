@@ -8,7 +8,7 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-@import url("https://fonts.googleapis.com/css2?family=Oleo+Script&family=Roboto:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script&family=Roboto:wght@100;300;400&display=swap");
 html {
   line-height: 1.15;
   /* 1 */
@@ -351,6 +351,7 @@ body {
   background-color: #343434;
   width: 100vw;
   height: 100vh;
+  font-family: "Roboto", sans-serif;
 }
 
 #app {
@@ -363,7 +364,7 @@ body {
 /* ==================================================================
     Utils
 ================================================================== */
-.new-project, .logo {
+.tab, .project-title, .new-project, .logo {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -377,6 +378,20 @@ body {
   user-select: none;
   /* Non-prefixed version, currently
      supported by Chrome, Edge, Opera and Firefox */
+}
+
+.tab:hover, .project-title:hover {
+  cursor: pointer;
+  background-color: #484848;
+}
+.selected.tab, .selected.project-title {
+  color: white;
+}
+.unselected.tab, .unselected.project-title {
+  color: #aaa;
+}
+.unselected.tab:hover, .unselected.project-title:hover {
+  color: #ccc;
 }
 
 /* ==================================================================
@@ -408,17 +423,16 @@ body {
   justify-content: center;
   align-items: center;
   margin-right: 20px;
-  font-size: 20px;
-  padding: 15px;
-  height: 10px;
-  width: 10px;
-  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  padding: 0.75em;
+  height: 0.5em;
+  width: 0.5em;
   background-color: green;
   border-radius: 30px;
 }
 .new-project:hover {
   cursor: pointer;
-  width: 130px;
+  width: 6.25em;
   transition: width 0.5s ease;
 }
 .new-project:hover::before {
@@ -437,7 +451,10 @@ body {
 }
 
 #project-explorer {
+  display: flex;
+  flex-direction: column;
   width: 15%;
+  min-width: 200px;
   height: 100%;
   background-color: #252526;
 }
@@ -450,10 +467,45 @@ body {
 
 .tabs-container {
   display: flex;
-  height: 5%;
+  height: 3%;
   min-height: 30px;
   width: 100%;
   background-color: #3c3c3c;
+}
+
+/* ==================================================================
+    Components
+================================================================== */
+.project-title {
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  padding-left: 20px;
+  background-color: #333;
+  color: whitesmoke;
+}
+.project-title i {
+  margin-right: 10px;
+}
+
+.tab {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 15px 0px 15px;
+  align-items: center;
+  height: 100%;
+  color: white;
+  border-right: 1px solid #343434;
+}
+.tab span {
+  margin-right: 10px;
+}
+.tab i {
+  font-size: 10px;
+}
+.tab i:hover {
+  color: white;
+  font-size: 12px;
 }
 
 /*# sourceMappingURL=main.css.map */

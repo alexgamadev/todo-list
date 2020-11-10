@@ -1,0 +1,26 @@
+.tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 15px 0px 15px;
+    align-items: center;
+    height: 100%;
+
+    color: white;
+
+    border-right: 1px solid $primary-variant;
+
+    span {
+        margin-right: 10px;
+    }
+
+    i {
+        font-size: 10px;
+        &:hover {
+            color: white;
+            font-size: 12px;
+        }
+    }
+
+    @extend %selection;
+    @extend %noselect;
+}

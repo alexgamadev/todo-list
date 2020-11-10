@@ -1,0 +1,17 @@
+.project-title {
+    display:flex;
+    align-items: center;
+    min-height: 30px;
+    padding-left: 20px;
+
+    background-color: #333;
+
+    color: whitesmoke;
+
+    i {
+        margin-right: 10px;
+    }
+
+    @extend %selection;
+    @extend %noselect;
+}

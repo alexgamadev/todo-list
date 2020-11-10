@@ -8,11 +8,14 @@ $primary-highlight: #252526;
 
 $tabs-color: #3c3c3c;
 
+$text-unselected: #aaa;
+$text-hovered: #ccc;
+
 /* ==================================================================
     Fonts
 ================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&family=Roboto:wght@100;300;400&display=swap');
 
 $logo-font: 'Oleo Script', cursive;
 $roboto-font: 'Roboto', sans-serif;
