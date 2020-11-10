@@ -1,5 +1,5 @@
 const headerElement = document.createElement("header");
-headerElement.id = "head";
+headerElement.id = "header";
 
 const logo = document.createElement("h1");
 logo.classList.add("logo");
@@ -13,7 +13,7 @@ headerElement.appendChild(logo);
 headerElement.appendChild(newProj);
 
 function loadHeader(appElement) {
-    appElement.appendChild(headerElement);
+    appElement.insertBefore(headerElement, appElement.childNodes[0]);
 }
 
 

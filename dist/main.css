@@ -349,11 +349,15 @@ template {
 ================================================================== */
 body {
   background-color: #343434;
+  width: 100vw;
+  height: 100vh;
 }
 
 #app {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 /* ==================================================================
@@ -378,14 +382,16 @@ body {
 /* ==================================================================
     Common styles
 ================================================================== */
-#head {
+#header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #212121;
   color: white;
+  min-height: 50px;
+  width: 100%;
 }
-#head .logo {
+#header .logo {
   font-size: 40px;
   margin-left: 20px;
 }
@@ -402,16 +408,17 @@ body {
   justify-content: center;
   align-items: center;
   margin-right: 20px;
-  padding: 10px;
+  font-size: 20px;
+  padding: 15px;
   height: 10px;
   width: 10px;
   font-family: "Roboto", sans-serif;
   background-color: green;
-  border-radius: 20px;
+  border-radius: 30px;
 }
 .new-project:hover {
   cursor: pointer;
-  width: 115px;
+  width: 130px;
   transition: width 0.5s ease;
 }
 .new-project:hover::before {
@@ -419,6 +426,34 @@ body {
   white-space: nowrap;
   white-space: pre;
   overflow: hidden;
+}
+
+/* ==================================================================
+    Pages
+================================================================== */
+#content {
+  display: flex;
+  flex: 1;
+}
+
+#project-explorer {
+  width: 15%;
+  height: 100%;
+  background-color: #252526;
+}
+
+#notes-explorer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tabs-container {
+  display: flex;
+  height: 5%;
+  min-height: 30px;
+  width: 100%;
+  background-color: #3c3c3c;
 }
 
 /*# sourceMappingURL=main.css.map */

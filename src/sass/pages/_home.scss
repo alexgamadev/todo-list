@@ -1,0 +1,25 @@
+#content {
+    display: flex;
+    flex: 1;
+}
+
+#project-explorer {
+    width: 15%;
+    height: 100%;
+    background-color: $primary-highlight;
+}
+
+#notes-explorer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.tabs-container {
+    display: flex;
+    height: 5%;
+    min-height: 30px;
+    width: 100%;
+
+    background-color: $tabs-color;
+}
