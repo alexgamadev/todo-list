@@ -4,7 +4,7 @@
     min-height: 30px;
     padding-left: 20px;
 
-    background-color: #333;
+    background-color: $explorer-color;
 
     color: whitesmoke;
 
@@ -14,4 +14,24 @@
 
     @extend %selection;
     @extend %noselect;
+}
+
+.list-container {
+    width: 100%;
+
+    transition: all 0.5s ease;
+
+    background-color: $primary-highlight;
+
+    &:hover {
+        height: 200px;
+    }
+
+    &.opened {
+        height: 200px;
+    }
+
+    &.closed {
+        height: 0px;
+    }
 }

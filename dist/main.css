@@ -470,7 +470,7 @@ body {
   height: 3%;
   min-height: 30px;
   width: 100%;
-  background-color: #3c3c3c;
+  background-color: #252526;
 }
 
 /* ==================================================================
@@ -481,11 +481,26 @@ body {
   align-items: center;
   min-height: 30px;
   padding-left: 20px;
-  background-color: #333;
+  background-color: #2e2e2e;
   color: whitesmoke;
 }
 .project-title i {
   margin-right: 10px;
+}
+
+.list-container {
+  width: 100%;
+  transition: all 0.5s ease;
+  background-color: #252526;
+}
+.list-container:hover {
+  height: 200px;
+}
+.list-container.opened {
+  height: 200px;
+}
+.list-container.closed {
+  height: 0px;
 }
 
 .tab {
@@ -495,6 +510,7 @@ body {
   align-items: center;
   height: 100%;
   color: white;
+  background-color: #3c3c3c;
   border-right: 1px solid #343434;
 }
 .tab span {
