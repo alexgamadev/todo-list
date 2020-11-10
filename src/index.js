@@ -1,14 +1,21 @@
 import {loadHeader} from './modules/header';
+import {loadProjExplorer} from "./modules/projectExplorer";
+import {init} from "./modules/home";
 
 const appElement = document.getElementById("app");
+const contentElement = document.getElementById("content");
+
+appElement.appendChild(contentElement);
 
 loadHeader(appElement);
+const projectTab = init();
+const projExplorer = loadProjExplorer(contentElement);
+projExplorer.appendChild(projectTab);
 
 
 /* ==================================================================
     Move to own module
 ================================================================== */
-const projExplorer = document.getElementById("project-explorer");
 const project = document.getElementsByClassName("project-title")[0];
 
 project.addEventListener('click', (({currentTarget}) => {
