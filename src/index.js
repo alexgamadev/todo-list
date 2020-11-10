@@ -4,13 +4,16 @@ import {init, loadHome} from "./modules/home";
 const appElement = document.getElementById("app");
 
 loadHeader(appElement);
-//loadHome(appElement);
+loadHome(appElement);
 
 
 /* ==================================================================
     Move to own module
 ================================================================== */
 const project = document.getElementsByClassName("project-title")[0];
+
+//Link project with project-tab
+//Link listContainer with project  
 
 project.addEventListener('click', (({currentTarget}) => {
     let classList = currentTarget.classList;

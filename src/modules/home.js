@@ -13,13 +13,16 @@ function loadHome(appElement) {
     let newTodo = new TodoData("Boopy", "Hello I am a list!");
     let newTodo2 = new TodoData("Hello I am a tab", "Hello I am a list 2!");
     let newProject = new ProjectData("Hi Kez", [newTodo, newTodo2]);
+    let newProject1 = new ProjectData("Boopers", []);
 
     const tab = TabGenerator.generateTodoTab(newProject.todos[0]);
     const tab1 = TabGenerator.generateTodoTab(newProject.todos[1]);
     const projectTab = TabGenerator.generateProjectTab(newProject);
+    const projectTab1 = TabGenerator.generateProjectTab(newProject1);
 
     const projExplorer = loadProjExplorer(contentElement);
     projExplorer.appendChild(projectTab);
+    projExplorer.appendChild(projectTab1);
     NotesExplorer.loadNotesExplorer(contentElement);
     NotesExplorer.addTab(tab);
     NotesExplorer.addTab(tab1);
