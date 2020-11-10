@@ -10,7 +10,6 @@ const TabGenerator = (() => {
 
         const title = document.createElement("span");
         title.innerText = projectData.name;
-        console.log(projectTab);
 
         projectTab.appendChild(arrow);
         projectTab.appendChild(title);

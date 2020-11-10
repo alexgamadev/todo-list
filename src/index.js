@@ -1,16 +1,10 @@
 import {loadHeader} from './modules/header';
-import {loadProjExplorer} from "./modules/projectExplorer";
-import {init} from "./modules/home";
+import {init, loadHome} from "./modules/home";
 
 const appElement = document.getElementById("app");
-const contentElement = document.getElementById("content");
-
-appElement.appendChild(contentElement);
 
 loadHeader(appElement);
-const projectTab = init();
-const projExplorer = loadProjExplorer(contentElement);
-projExplorer.appendChild(projectTab);
+loadHome(appElement);
 
 
 /* ==================================================================
