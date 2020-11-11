@@ -13,8 +13,16 @@ class ProjectData {
         return this._todos;
     }
 
+    get id() {
+        return this._id;
+    }
+
     set name(name) {
         this._name = name;
+    }
+
+    set id(id){
+        this._id = id;
     }
 
     addTodo(todo) {

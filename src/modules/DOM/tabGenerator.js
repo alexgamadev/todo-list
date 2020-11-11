@@ -3,6 +3,7 @@ const TabGenerator = (() => {
         //Create project tab container
         const projectTab = document.createElement("div");
         projectTab.classList.add("project-container");
+        projectTab.attributes["data-projectId"] = projectData.id;
 
         //Create container for title elements
         const projectTitle = document.createElement("div");
