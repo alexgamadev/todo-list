@@ -1,5 +1,5 @@
 
-class ProjectData {
+class Project {
     constructor(name, todos){
         this._name = name;
         this._todos = todos;
@@ -17,6 +17,10 @@ class ProjectData {
         return this._id;
     }
 
+    get isEmpty() {
+        return this._todos <= 0 ? true : false;
+    }
+
     set name(name) {
         this._name = name;
     }
@@ -28,6 +32,14 @@ class ProjectData {
     addTodo(todo) {
         this.todos.push(todo);
     }
+
+    addTabDOM(tabDOM) {
+        this._tabDOM = tabDOM;
+    }
+
+    get tabDOM() {
+        return this._tabDOM;
+    }
 }
 
-export {ProjectData}
+export {Project}

@@ -1,9 +1,9 @@
 const ProjectManager = (() => {
     let _projects = [];
     
-    function addProject(projectData) {
-        projectData.id = _projects.length;
-        _projects.push(projectData);
+    function addProject(Project) {
+        Project.id = _projects.length;
+        _projects.push(Project);
     }
 
     function getProject(id) {

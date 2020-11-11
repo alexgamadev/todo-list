@@ -1,9 +1,9 @@
 const TabGenerator = (() => {
-    const generateProjectTab = (projectData) => {
+    const generateProjectTab = (Project) => {
         //Create project tab container
         const projectTab = document.createElement("div");
         projectTab.classList.add("project-container");
-        projectTab.attributes["data-projectId"] = projectData.id;
+        projectTab.attributes["data-projectId"] = Project.id;
 
         //Create container for title elements
         const projectTitle = document.createElement("div");
@@ -17,7 +17,7 @@ const TabGenerator = (() => {
 
         //Create title name
         const name = document.createElement("span");
-        name.innerText = projectData.name;
+        name.innerText = Project.name;
 
         //Add arrow and title to container
         projectTitle.appendChild(arrow);
@@ -27,10 +27,18 @@ const TabGenerator = (() => {
         const listContainer = document.createElement("div");
         listContainer.classList.add("list-container");
         listContainer.classList.add("closed");
+ 
+        projectTab.addEventListener('click', (({currentTarget}) => {
+            toggleSelected(currentTarget, Project);
+        }));
+
+        /* ================================================================== */
 
         //Fill project container
         projectTab.appendChild(projectTitle);
         projectTab.appendChild(listContainer);
+
+        Project.addTabDOM(projectTab);
 
         return projectTab;
     };
@@ -56,6 +64,34 @@ const TabGenerator = (() => {
 
         return tab;
     };
+
+    const toggleSelected = (currentTarget, Project) => {
+        let projectTitle = currentTarget.children[0];
+
+        if(Project.isEmpty) { return; }
+        let classList = projectTitle.classList;
+
+        if(classList.contains("unselected")) {
+            classList.remove("unselected");
+            classList.add("selected");
+
+            //Move to own functions
+            projectTitle.children[0].classList.remove("fa-angle-right");
+            projectTitle.children[0].classList.add("fa-angle-down");
+            currentTarget.children[1].classList.remove("closed");
+            currentTarget.children[1].classList.add("opened");
+        }
+        else if(classList.contains("selected")) {
+            classList.add("unselected");
+            classList.remove("selected");
+
+            //Move to own functions
+            projectTitle.children[0].classList.add("fa-angle-right");
+            projectTitle.children[0].classList.remove("fa-angle-down");
+            currentTarget.children[1].classList.remove("opened");
+            currentTarget.children[1].classList.add("closed"); 
+        }
+    }
 
     return {generateProjectTab, generateTodoTab};
 })();
