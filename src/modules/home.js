@@ -1,20 +1,11 @@
 import { Project } from "./project"
 import { TodoData } from "./todoData";
-import { TabGenerator } from "./DOM/tabGenerator";
-import {loadProjExplorer} from "./projectExplorer";
-import {NotesExplorer} from "./notesExplorer";
+import { TabGenerator } from "./DOM/tab-generator";
+import {ProjectExplorer} from "./project-explorer";
+import {NotesExplorer} from "./notes-explorer";
 import {ProjectManager} from "./projectManager";
 
 function loadHome(appElement) {
-    //Create content div for laying out page
-    const contentElement = document.createElement("div");
-    contentElement.id = "content";
-    appElement.appendChild(contentElement); 
-
-    //Create the project explorer and add project tabs
-    const projExplorer = loadProjExplorer(contentElement);
-    console.log(projExplorer);
-
     //Create some test projects and todo lists
     let newTodo = new TodoData("Boopy", "Hello I am a list!");
     let newTodo2 = new TodoData("Hello I am a tab", "Hello I am a list 2!");
@@ -34,11 +25,9 @@ function loadHome(appElement) {
     }
 
     for(let k = 0; k < projectTabs.length; k++) {
-        projExplorer.appendChild(projectTabs[k]);
+        ProjectExplorer.addTab(projectTabs[k]);
     }
 
-    //Create the notes explorer and add note tabs
-    NotesExplorer.loadNotesExplorer(contentElement);
     NotesExplorer.addTab(tab);
     NotesExplorer.addTab(tab1);
 }
