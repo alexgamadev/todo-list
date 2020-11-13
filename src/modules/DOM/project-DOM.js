@@ -1,3 +1,5 @@
+import { NotesExplorer } from "../notes-explorer";
+
 const ProjectDOM = (() => {
     /*=============================================
     Create tab, delete tab, get tab, add todo, update todo, remove todo
@@ -95,6 +97,10 @@ const ProjectDOM = (() => {
 
         docDiv.appendChild(docIcon);
         docDiv.appendChild(docTitle);
+
+        docTitle.addEventListener('click', (() => {
+             NotesExplorer.openTodo(todo);
+        }));
 
         return docDiv;
     };
