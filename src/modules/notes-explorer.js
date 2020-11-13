@@ -27,7 +27,7 @@ const NotesExplorer = (() => {
     }
 
     function closeTodo(todo){
-        if(!isTodoOpen) {
+        if(!isTodoOpen(todo)) {
             return;
         }
 
@@ -35,6 +35,12 @@ const NotesExplorer = (() => {
         _openTodos.splice(index, 1);
         _tabs[index].remove();
         _tabs.splice(index, 1);
+
+        if(todo === _selectedTodo && _openTodos !== undefined){
+            _selectedTodo = undefined;
+            selectTodo(_openTodos[_openTodos.length-1]);
+        }
+        
     }
 
     function selectTodo(todo){

@@ -11,20 +11,21 @@ const TodoDOM = (() => {
         tab.classList.add("tab");
         tab.classList.add("unselected");
 
-        tab.addEventListener('click', (() => {
-            NotesExplorer.selectTodo(todo);
-        }), true);
-
         //Create tab title span
         const title = document.createElement("span");
         title.innerText = todo.title;
+
+        tab.addEventListener('click', (() => {
+            NotesExplorer.selectTodo(todo);
+        }));
 
         //Create tab close button
         const closeButton = document.createElement("i");
         closeButton.classList.add("fas");
         closeButton.classList.add("fa-times");
 
-        closeButton.addEventListener('click', (() => {
+        closeButton.addEventListener('click', ((e) => {
+            e.stopPropagation();
             NotesExplorer.closeTodo(todo);
         }));
 
