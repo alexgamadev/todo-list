@@ -1,9 +1,12 @@
-const TabGenerator = (() => {
-    const generateProjectTab = (Project) => {
+const ProjectDOM = (() => {
+    /*=============================================
+    Create tab, delete tab, get tab, add todo, update todo, remove todo
+    ===============================================*/
+    const generateTab = (projectData) => {
         //Create project tab container
         const projectTab = document.createElement("div");
         projectTab.classList.add("project-container");
-        projectTab.attributes["data-projectId"] = Project.id;
+        projectTab.attributes["data-projectId"] = projectData.id;
 
         //Create container for title elements
         const projectTitle = document.createElement("div");
@@ -17,7 +20,7 @@ const TabGenerator = (() => {
 
         //Create title name
         const name = document.createElement("span");
-        name.innerText = Project.name;
+        name.innerText = projectData.name;
 
         //Add arrow and title to container
         projectTitle.appendChild(arrow);
@@ -27,9 +30,12 @@ const TabGenerator = (() => {
         const listContainer = document.createElement("div");
         listContainer.classList.add("list-container");
         listContainer.classList.add("closed");
+
+        //Generate 
+        loadTodoDocLinks(listContainer, projectData.todos);
  
-        projectTab.addEventListener('click', (({currentTarget}) => {
-            toggleSelected(currentTarget, Project);
+        projectTitle.addEventListener('click', (({currentTarget}) => {
+            toggleSelected(currentTarget.parentNode);
         }));
 
         /* ================================================================== */
@@ -38,37 +44,14 @@ const TabGenerator = (() => {
         projectTab.appendChild(projectTitle);
         projectTab.appendChild(listContainer);
 
-        Project.addTabDOM(projectTab);
+        projectData.addTabDOM(projectTab);
 
         return projectTab;
     };
 
-    const generateTodoTab = (todoData) => {
-        //Create tab container
-        const tab = document.createElement("div");
-        tab.classList.add("tab");
-        tab.classList.add("unselected");
+    const toggleSelected = (projectTab) => {
+        let projectTitle = projectTab.children[0];
 
-        //Create tab title span
-        const title = document.createElement("span");
-        title.innerText = todoData.title;
-
-        //Create tab close button
-        const closeButton = document.createElement("i");
-        closeButton.classList.add("fas");
-        closeButton.classList.add("fa-times");
-
-        //Fill tab container
-        tab.appendChild(title);
-        tab.appendChild(closeButton);
-
-        return tab;
-    };
-
-    const toggleSelected = (currentTarget, Project) => {
-        let projectTitle = currentTarget.children[0];
-
-        if(Project.isEmpty) { return; }
         let classList = projectTitle.classList;
 
         if(classList.contains("unselected")) {
@@ -78,8 +61,8 @@ const TabGenerator = (() => {
             //Move to own functions
             projectTitle.children[0].classList.remove("fa-angle-right");
             projectTitle.children[0].classList.add("fa-angle-down");
-            currentTarget.children[1].classList.remove("closed");
-            currentTarget.children[1].classList.add("opened");
+            projectTab.children[1].classList.remove("closed");
+            projectTab.children[1].classList.add("opened");
         }
         else if(classList.contains("selected")) {
             classList.add("unselected");
@@ -88,12 +71,35 @@ const TabGenerator = (() => {
             //Move to own functions
             projectTitle.children[0].classList.add("fa-angle-right");
             projectTitle.children[0].classList.remove("fa-angle-down");
-            currentTarget.children[1].classList.remove("opened");
-            currentTarget.children[1].classList.add("closed"); 
+            projectTab.children[1].classList.remove("opened");
+            projectTab.children[1].classList.add("closed"); 
         }
     }
 
-    return {generateProjectTab, generateTodoTab};
+    const loadTodoDocLinks = (listContainer, todos) => {
+        todos.forEach(todo => {
+            listContainer.appendChild(generateTodoDocLink(todo));
+        });
+    };
+
+    const generateTodoDocLink = (todo) => {
+        const docDiv = document.createElement("div");
+        docDiv.classList.add("todo-doc");
+
+        const docIcon = document.createElement("i");
+        docIcon.classList.add("far");
+        docIcon.classList.add("fa-file-alt");
+
+        const docTitle = document.createElement("span");
+        docTitle.innerText = todo.title;
+
+        docDiv.appendChild(docIcon);
+        docDiv.appendChild(docTitle);
+
+        return docDiv;
+    };
+
+    return {generateTab}
 })();
 
-export {TabGenerator};
+export {ProjectDOM}

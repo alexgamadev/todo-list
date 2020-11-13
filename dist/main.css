@@ -364,7 +364,7 @@ body {
 /* ==================================================================
     Utils
 ================================================================== */
-.tab, .project-title, .new-project, .logo {
+.tab, .todo-doc, .project-title, .new-project, .logo {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -493,6 +493,8 @@ body {
   width: 100%;
   transition: all 0.5s ease;
   background-color: #252526;
+  border-bottom: 1px solid #313131;
+  overflow: hidden;
 }
 .list-container:hover {
   height: 200px;
@@ -501,7 +503,25 @@ body {
   height: 200px;
 }
 .list-container.closed {
+  visibility: hidden;
   height: 0px;
+}
+
+.todo-doc {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  padding-left: 40px;
+  gap: 10px;
+  color: #aaa;
+}
+.todo-doc:hover {
+  cursor: pointer;
+  color: #ddd;
+}
+.todo-doc i {
+  font-size: 12px;
 }
 
 .tab {

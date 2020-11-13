@@ -1,3 +1,4 @@
+import { TodoDOM } from "./DOM/todo-DOM";
 
 const NotesExplorer = (() => {
     const explorerDiv = document.getElementById("notes-explorer");
@@ -7,8 +8,12 @@ const NotesExplorer = (() => {
         tabsContainer.appendChild(tab);
     }
 
-    return {addTab}
+    function openTodo(todo) {
+        const tab = TodoDOM.generateTodoTab(todo);
+        addTab(tab);
+    }
 
+    return {openTodo}
 })();
 
 export {NotesExplorer}

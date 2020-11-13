@@ -1,5 +1,5 @@
 
-class Project {
+class ProjectData {
     constructor(name, todos){
         this._name = name;
         this._todos = todos;
@@ -42,4 +42,4 @@ class Project {
     }
 }
 
-export {Project}
+export {ProjectData}
