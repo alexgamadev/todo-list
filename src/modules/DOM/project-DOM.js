@@ -98,7 +98,7 @@ const ProjectDOM = (() => {
         docDiv.appendChild(docIcon);
         docDiv.appendChild(docTitle);
 
-        docTitle.addEventListener('click', (() => {
+        docDiv.addEventListener('click', (() => {
              NotesExplorer.openTodo(todo);
         }));
 

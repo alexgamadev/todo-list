@@ -11,6 +11,10 @@ const TodoDOM = (() => {
         tab.classList.add("tab");
         tab.classList.add("unselected");
 
+        tab.addEventListener('click', (() => {
+            NotesExplorer.selectTodo(todo);
+        }), true);
+
         //Create tab title span
         const title = document.createElement("span");
         title.innerText = todo.title;
