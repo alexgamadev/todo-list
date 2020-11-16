@@ -1,0 +1,8 @@
+1) Allow for a todo to be currently selected - DONE
+2) Show data of currently selected todo in the notes editor
+3) Add ability to create a todo list in the browser
+4) Add ability to create a project in browser
+5) Add ability to delete projects and todo lists
+5) Add more advanced todo list features
+6) Allow for renaming of projects and todo lists
+7) Allow for editing of todo lists

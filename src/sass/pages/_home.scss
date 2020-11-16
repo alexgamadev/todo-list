@@ -11,6 +11,8 @@
     height: 100%;
     overflow: hidden;
     background-color: $primary-highlight;
+
+    border-right: 1px solid #222;
 }
 
 #notes-explorer {
@@ -19,11 +21,19 @@
     flex: 1;
 }
 
-.tabs-container {
+#tabs-container {
     display: flex;
     height: 3%;
     min-height: 30px;
     width: 100%;
 
-    background-color: $primary-highlight;
+    background-color: $explorer-color;
+}
+
+#notes-editor {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    color: #ddd;
 }

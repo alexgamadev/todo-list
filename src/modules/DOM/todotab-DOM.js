@@ -1,11 +1,11 @@
 import {NotesExplorer} from "../notes-explorer";
 
-const TodoDOM = (() => {
+const TodoTabDOM = (() => {
     /*=============================================
     Create tab, delete tab, get tab
     ===============================================*/
 
-    const generateTodoTab = (todo) => {
+    const generateTab = (todo) => {
         //Create tab container
         const tab = document.createElement("div");
         tab.classList.add("tab");
@@ -36,7 +36,7 @@ const TodoDOM = (() => {
         return tab;
     };
 
-    return {generateTodoTab};
+    return {generateTab};
 })();
 
-export {TodoDOM};
+export {TodoTabDOM};
