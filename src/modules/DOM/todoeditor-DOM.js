@@ -2,7 +2,7 @@ import Utility from "../utils";
 
 const TodoEditorDOM = (() => {
     /*=============================================
-    Create tab, delete tab, get tab
+    Generate Editor Content and Clear Editor Content
     ===============================================*/
     const generateEditor = (todo) => {
         const editor = document.getElementById("notes-editor");
@@ -57,7 +57,12 @@ const TodoEditorDOM = (() => {
 
         const textArea = document.createElement("textarea");
         textArea.classList.add("notes");
-        textArea.innerText = todo.notes;
+        textArea.value = todo.notes;
+
+        textArea.addEventListener("focusout", function(){
+            console.log(textArea.value);
+            todo.notes = textArea.value;
+        });
 
         notesContainer.appendChild(notesHeading);
         notesContainer.appendChild(textArea);
@@ -78,10 +83,12 @@ const TodoEditorDOM = (() => {
         const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
         const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
         
+        //If checklist exists and isn't empty
         if(todo.checklist?.size) {
-            todo.checklist.forEach((value, item) => {
+            todo.checklist.forEach(function(value, item){
+
+                //Create list item for each item in the checklist
                 const listItem = document.createElement("li");
-                console.log(item + " " + value);
                 if(value) {
                     listItem.classList.add("checked");
                     const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
@@ -92,8 +99,8 @@ const TodoEditorDOM = (() => {
                     listItem.appendChild(crossIcon);
                 }
 
-
-                listItem.addEventListener("click", (({currentTarget}) => {
+                //Toggle checklist item and save value
+                listItem.addEventListener("click", (function({currentTarget}){
                     let classList = currentTarget.classList;
                     const icon = currentTarget.querySelector(".item-icon");
                     if(classList.contains("checked")) {
@@ -101,14 +108,17 @@ const TodoEditorDOM = (() => {
                         classList.add("unchecked");
                         icon.classList.remove("fa-check-circle");
                         icon.classList.add("fa-times-circle");
+                        todo.checklist.set(item, false);
                     } else if (classList.contains("unchecked")) {
                         classList.remove("unchecked");
                         classList.add("checked");
                         icon.classList.add("fa-check-circle");
                         icon.classList.remove("fa-times-circle");
+                        todo.checklist.set(item, true);
                     }
                 }));
 
+                //Add name of checklist item
                 const text = document.createElement("span");
                 text.innerText = item;
                 listItem.appendChild(text);
