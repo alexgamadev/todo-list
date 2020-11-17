@@ -21,51 +21,13 @@ const TodoEditorDOM = (() => {
     }
 
     const generateContent = (todo) => {
-        console.log(todo);
         //Find content container
         const content = document.getElementById("notes-content");
+
+        const notesContainer = createNotesContainer(todo);
+        const listContainer = createChecklistContainer(todo);
         
-        /*=============================================
-            Notes Container
-        ===============================================*/
-        const notesContainer = document.createElement("div");
-        notesContainer.classList.add("notes-container");
-
-        const notesHeading = document.createElement("h3");
-        notesHeading.innerText = "Notes";
-
-        const textArea = document.createElement("textarea");
-        textArea.classList.add("notes");
-        textArea.innerText = todo.notes;
-
-        notesContainer.appendChild(notesHeading);
-        notesContainer.appendChild(textArea);
-
         content.appendChild(notesContainer);
-
-        /*=============================================
-            Checklist Container
-        ===============================================*/
-        const listContainer = document.createElement("div");
-        listContainer.classList.add("checklist-container");
-
-        const listHeading = document.createElement("h3");
-        listHeading.innerText = "Checklist";
-
-        const list = document.createElement("ul");
-        
-        if(todo.checklist?.length) {
-            todo.checklist.forEach(item => {
-                const listItem = document.createElement("li");
-                listItem.innerText = item;
-                list.appendChild(listItem);
-            });
-        }
-        
-
-        listContainer.appendChild(listHeading);
-        listContainer.appendChild(list);
-
         content.appendChild(listContainer);
 
         return content;
@@ -84,6 +46,80 @@ const TodoEditorDOM = (() => {
             </div>`
 
         return details;
+    };
+
+    const createNotesContainer = (todo) => {
+        const notesContainer = document.createElement("div");
+        notesContainer.classList.add("notes-container");
+
+        const notesHeading = document.createElement("h3");
+        notesHeading.innerText = "Notes";
+
+        const textArea = document.createElement("textarea");
+        textArea.classList.add("notes");
+        textArea.innerText = todo.notes;
+
+        notesContainer.appendChild(notesHeading);
+        notesContainer.appendChild(textArea);
+
+        return notesContainer;
+    };
+
+    const createChecklistContainer = (todo) => {
+        const listContainer = document.createElement("div");
+
+        listContainer.classList.add("checklist-container");
+
+        const listHeading = document.createElement("h3");
+        listHeading.innerText = "Checklist";
+
+        const list = document.createElement("ul");
+
+        const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
+        const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
+        
+        if(todo.checklist?.size) {
+            todo.checklist.forEach((value, item) => {
+                const listItem = document.createElement("li");
+                console.log(item + " " + value);
+                if(value) {
+                    listItem.classList.add("checked");
+                    const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
+                    listItem.appendChild(checkIcon);
+                } else {
+                    listItem.classList.add("unchecked");
+                    const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
+                    listItem.appendChild(crossIcon);
+                }
+
+
+                listItem.addEventListener("click", (({currentTarget}) => {
+                    let classList = currentTarget.classList;
+                    const icon = currentTarget.querySelector(".item-icon");
+                    if(classList.contains("checked")) {
+                        classList.remove("checked");
+                        classList.add("unchecked");
+                        icon.classList.remove("fa-check-circle");
+                        icon.classList.add("fa-times-circle");
+                    } else if (classList.contains("unchecked")) {
+                        classList.remove("unchecked");
+                        classList.add("checked");
+                        icon.classList.add("fa-check-circle");
+                        icon.classList.remove("fa-times-circle");
+                    }
+                }));
+
+                const text = document.createElement("span");
+                text.innerText = item;
+                listItem.appendChild(text);
+                list.appendChild(listItem);
+            });
+        }
+
+        listContainer.appendChild(listHeading);
+        listContainer.appendChild(list);
+
+        return listContainer;
     };
 
     return {generateEditor, clearEditor};

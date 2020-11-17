@@ -6,7 +6,12 @@ import { ProjectManager } from "./project-manager";
 
 
 function loadHome(appElement) {
-    let checklist1 = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"];
+    let checklist1 = new Map();
+    checklist1.set("Item 1", false);
+    checklist1.set("Item 2", true);
+    checklist1.set("Item 3", false);
+    checklist1.set("Item 4", false);
+    checklist1.set("Item 5", false);
     //Create some test projects and todo lists
     let newTodo = new TodoData("Boopy", "Hello I am a list!", checklist1);
     let newTodo2 = new TodoData("Hello I am a tab", "Hello I am a list 2!");

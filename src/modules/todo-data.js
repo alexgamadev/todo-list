@@ -26,13 +26,12 @@ class TodoData {
         this._notes = notes;
     };
 
-    addChecklistItem(item) {
-        _checklist.push(item);
+    addChecklistItem(item, checked) {
+        _checklist.set(item, checked);
     }
 
     removeChecklistItem(item) {
-        let index = _checklist.indexof(item);
-        _checklist.splice(index, 1);
+        _checklist.remove(item);
     }
 }
 

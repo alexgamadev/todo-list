@@ -26,32 +26,47 @@
 
 .checklist-container {
     flex: 1;
+
+    padding: 0px;
+
     ul {
         max-height: 500px;
-        overflow-y: scroll;
+        width: 80%;
+        overflow-y: auto;
         overflow-x: hidden;
 
-        list-style-type: none;
         margin: 0;
         padding: 0;
+        border-radius: 5px;
+
+        list-style-type: none;
 
         background-color: #414141;
-        border-radius: 5px;
-        width: 80%;
 
         li {
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 2px;
+            border-bottom: 1px solid #393939;
+
+            i {
+                margin-right: 10px;
+            }
 
             &:hover {
                 cursor: pointer;
                 background-color: #515151;
             }
-            
+
+            &.checked {
+                text-decoration: line-through;
+                color: #6cff5b;
+            }
+
+            &.unchecked {
+                color: #ff5436;
+            }
         }
     }
-
-    padding: 0px;
 }
 
 #notes-details {
