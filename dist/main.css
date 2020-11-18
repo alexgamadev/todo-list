@@ -361,6 +361,10 @@ body {
   height: 100%;
 }
 
+.align-right {
+  margin-left: auto;
+}
+
 /* ==================================================================
     Utils
 ================================================================== */
@@ -496,6 +500,14 @@ body {
 .project-title i {
   margin-right: 10px;
 }
+.project-title .fa-plus {
+  font-size: 10px;
+  transform-origin: center center;
+}
+.project-title .fa-plus:hover {
+  transform: scale(1.3);
+  color: white;
+}
 
 .list-container {
   width: 100%;
@@ -520,9 +532,9 @@ body {
 .todo-doc {
   display: flex;
   align-items: center;
-  width: 100%;
   height: 25px;
   padding-left: 40px;
+  padding-right: 10px;
   gap: 10px;
   color: #aaa;
 }
@@ -532,6 +544,13 @@ body {
 }
 .todo-doc i {
   font-size: 12px;
+}
+.todo-doc .fa-times {
+  color: #aaa;
+}
+.todo-doc .fa-times:hover {
+  transform: scale(1.1);
+  color: white;
 }
 
 .tab {
@@ -552,7 +571,7 @@ body {
 }
 .tab i:hover {
   color: white;
-  font-size: 12px;
+  transform: scale(1.3);
 }
 
 #notes-content {
@@ -618,6 +637,11 @@ body {
   padding-left: 20px;
   padding-right: 20px;
   border-left: 1px solid #222;
+}
+#notes-details .due-date {
+  background-color: #444;
+  color: whitesmoke;
+  border: 1px solid #555;
 }
 
 /*# sourceMappingURL=main.css.map */

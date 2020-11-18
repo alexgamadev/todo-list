@@ -12,6 +12,15 @@
         margin-right: 10px;
     }
 
+    .fa-plus {
+        font-size: 10px;
+        transform-origin: center center;
+        &:hover {
+            transform: scale(1.3);
+            color: white;
+        }
+    }
+
     @extend %selection;
     @extend %noselect;
 }
@@ -46,9 +55,9 @@
 .todo-doc {
     display: flex;
     align-items: center;
-    width: 100%;
     height: 25px;
     padding-left: 40px;
+    padding-right: 10px;
     gap: 10px;
 
     color: #aaa;
@@ -62,6 +71,14 @@
 
     i {
         font-size: 12px;
+    }
+
+    .fa-times {
+        color: #aaa;
+        &:hover {
+            transform: scale(1.1);
+            color: white;
+        }
     }
     
 }

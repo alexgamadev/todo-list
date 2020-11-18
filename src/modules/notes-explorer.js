@@ -44,6 +44,7 @@ const NotesExplorer = (() => {
             selectTodo(_openTodos[_openTodos.length-1]);
         } else if(todo === _selectedTodo) {
             _selectedTodo = undefined;
+            TodoEditorDOM.clearEditor();
         }
         
     }

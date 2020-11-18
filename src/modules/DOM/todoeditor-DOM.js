@@ -40,7 +40,7 @@ const TodoEditorDOM = (() => {
         //Placeholder details
         details.innerHTML = `<div>
             <h3>Due Date</h3>
-            <div>5th December 2020</div>
+            <input type="date" class="due-date">
             <h3>Priority</h3>
             <div>Red</div>
             </div>`

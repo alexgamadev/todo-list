@@ -1,4 +1,5 @@
 import { NotesExplorer } from "../notes-explorer";
+import Utility from "../utils";
 
 const ProjectDOM = (() => {
     /*=============================================
@@ -24,9 +25,18 @@ const ProjectDOM = (() => {
         const name = document.createElement("span");
         name.innerText = projectData.name;
 
+        const addButton = Utility.CreateElementFromHTML(`<i class="fas fa-plus" aria-hidden="true"></i>`);
+        addButton.classList.add("align-right");
+        addButton.addEventListener('click', ((e) => {
+            e.stopPropagation();
+            alert("Create new project");
+        }));
+        
+
         //Add arrow and title to container
         projectTitle.appendChild(arrow);
         projectTitle.appendChild(name);
+        projectTitle.appendChild(addButton);
 
         //Create container where project list tabs will be stored
         const listContainer = document.createElement("div");
@@ -95,8 +105,16 @@ const ProjectDOM = (() => {
         const docTitle = document.createElement("span");
         docTitle.innerText = todo.title;
 
+        const docCloseButton = Utility.CreateElementFromHTML(`<i class="fas fa-times" aria-hidden="true"></i>`);
+        docCloseButton.classList.add("align-right");
+        docCloseButton.addEventListener('click', ((e) => {
+            e.stopPropagation();
+            alert("Delete todo list");
+        }));
+
         docDiv.appendChild(docIcon);
         docDiv.appendChild(docTitle);
+        docDiv.appendChild(docCloseButton);
 
         docDiv.addEventListener('click', (() => {
              NotesExplorer.openTodo(todo);
