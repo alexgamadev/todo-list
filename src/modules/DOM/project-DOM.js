@@ -17,12 +17,20 @@ const ProjectDOM = (() => {
         //Create container for title elements
         const projectTitle = document.createElement("div");
         projectTitle.classList.add("project-title");
-        projectTitle.classList.add("unselected");
+        if(!projectData.isOpen) {
+            projectTitle.classList.add("unselected");
+        } else {
+            projectTitle.classList.add("selected");
+        }
 
         //Create project selection arrow
         const arrow = document.createElement("i");
         arrow.classList.add("fas");
-        arrow.classList.add("fa-angle-right");
+        if(projectData.isOpen) {
+            arrow.classList.add("fa-angle-down");
+        } else {
+            arrow.classList.add("fa-angle-right");
+        }
 
         //Create title name
         const name = document.createElement("span");
@@ -32,7 +40,7 @@ const ProjectDOM = (() => {
         addButton.classList.add("align-right");
         addButton.addEventListener('click', ((e) => {
             e.stopPropagation();
-            alert("Create new project");
+            PanelDOM.createTodoPanel(projectData.id);
         }));
         
 
@@ -44,13 +52,18 @@ const ProjectDOM = (() => {
         //Create container where project list tabs will be stored
         const listContainer = document.createElement("div");
         listContainer.classList.add("list-container");
-        listContainer.classList.add("closed");
+
+        if(projectData.isOpen) {
+            listContainer.classList.add("opened");
+        } else {
+            listContainer.classList.add("closed");
+        }
 
         //Generate 
         loadTodoDocLinks(listContainer, projectData.id, projectData.todos);
  
         projectTitle.addEventListener('click', (({currentTarget}) => {
-            toggleSelected(currentTarget.parentNode);
+            toggleSelected(currentTarget.parentNode, projectData);
         }));
 
         /* ================================================================== */
@@ -64,7 +77,7 @@ const ProjectDOM = (() => {
         return projectTab;
     };
 
-    const toggleSelected = (projectTab) => {
+    const toggleSelected = (projectTab, projectData) => {
         let projectTitle = projectTab.children[0];
 
         let classList = projectTitle.classList;
@@ -78,6 +91,8 @@ const ProjectDOM = (() => {
             projectTitle.children[0].classList.add("fa-angle-down");
             projectTab.children[1].classList.remove("closed");
             projectTab.children[1].classList.add("opened");
+
+            projectData.isOpen = true;
         }
         else if(classList.contains("selected")) {
             classList.add("unselected");
@@ -88,6 +103,8 @@ const ProjectDOM = (() => {
             projectTitle.children[0].classList.remove("fa-angle-down");
             projectTab.children[1].classList.remove("opened");
             projectTab.children[1].classList.add("closed"); 
+
+            projectData.isOpen = false;
         }
     }
 
@@ -138,7 +155,7 @@ const ProjectDOM = (() => {
         target.parentNode.remove();
     }
 
-    return {generateTab, deleteTodoLink}
+    return {generateTab, deleteTodoLink, generateTodoDocLink}
 })();
 
 export {ProjectDOM}

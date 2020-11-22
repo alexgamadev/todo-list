@@ -17,6 +17,10 @@ body {
     margin-left: auto;
 }
 
+.align-left {
+    margin-right: auto;
+}
+
 .btn {
     border: none;
     border-radius: 5px;
@@ -24,11 +28,11 @@ body {
 
     background-color: #ccc;
     &.btn-success {
-        background-color: green;
+        background-color: limegreen;
     }
 
     &.btn-error {
-        background-color: red;
+        background-color: $error;
     }
 
     &:hover {

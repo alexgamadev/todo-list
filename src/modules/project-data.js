@@ -3,6 +3,7 @@ class ProjectData {
     constructor(name, todos){
         this._name = name;
         this._todos = todos;
+        this._isOpen = false;
     }
 
     get name() {
@@ -17,8 +18,16 @@ class ProjectData {
         return this._todos <= 0 ? true : false;
     }
 
+    get isOpen() {
+        return this._isOpen;
+    }
+
     set name(name) {
         this._name = name;
+    }
+
+    set isOpen(bool) {
+        this._isOpen = bool;
     }
 
     addTodo(todo) {

@@ -32,7 +32,7 @@
         display: flex;
         justify-content: center;
 
-        margin-bottom: 20px;
+        margin-bottom: 10px;
 
         text-align: center;
         font-size: 18px;
@@ -55,6 +55,12 @@
 
     .message {
         font-size: 18px;
+    }
+
+    input[type=text] {
+        background-color: #bbb;
+        color: black;
+        border: none;
     }
 
     .buttons {
