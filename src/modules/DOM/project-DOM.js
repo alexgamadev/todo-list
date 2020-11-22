@@ -1,4 +1,5 @@
 import { NotesExplorer } from "../notes-explorer";
+import {ProjectManager} from "../project-manager";
 import Utility from "../utils";
 
 const ProjectDOM = (() => {
@@ -44,7 +45,7 @@ const ProjectDOM = (() => {
         listContainer.classList.add("closed");
 
         //Generate 
-        loadTodoDocLinks(listContainer, projectData.todos);
+        loadTodoDocLinks(listContainer, projectData.id, projectData.todos);
  
         projectTitle.addEventListener('click', (({currentTarget}) => {
             toggleSelected(currentTarget.parentNode);
@@ -88,15 +89,16 @@ const ProjectDOM = (() => {
         }
     }
 
-    const loadTodoDocLinks = (listContainer, todos) => {
+    const loadTodoDocLinks = (listContainer, projectID, todos) => {
         todos.forEach(todo => {
-            listContainer.appendChild(generateTodoDocLink(todo));
+            listContainer.appendChild(generateTodoDocLink(projectID, todo));
         });
     };
 
-    const generateTodoDocLink = (todo) => {
+    const generateTodoDocLink = (projectID, todo) => {
         const docDiv = document.createElement("div");
         docDiv.classList.add("todo-doc");
+        docDiv.attributes["data-project-id"] = projectID;
 
         const docIcon = document.createElement("i");
         docIcon.classList.add("far");
@@ -107,9 +109,16 @@ const ProjectDOM = (() => {
 
         const docCloseButton = Utility.CreateElementFromHTML(`<i class="fas fa-times" aria-hidden="true"></i>`);
         docCloseButton.classList.add("align-right");
+
+        //Event listener to delete todo lists
         docCloseButton.addEventListener('click', ((e) => {
             e.stopPropagation();
-            alert("Delete todo list");
+            //Get project containing todo
+            const project = ProjectManager.getProject(projectID);
+            //Close todo tab if open, remove todo from project and delete todo document link from project explorer
+            NotesExplorer.closeTodo(todo);
+            project.removeTodo(todo);
+            e.target.parentNode.remove();
         }));
 
         docDiv.appendChild(docIcon);
@@ -117,7 +126,7 @@ const ProjectDOM = (() => {
         docDiv.appendChild(docCloseButton);
 
         docDiv.addEventListener('click', (() => {
-             NotesExplorer.openTodo(todo);
+            NotesExplorer.openTodo(todo);
         }));
 
         return docDiv;

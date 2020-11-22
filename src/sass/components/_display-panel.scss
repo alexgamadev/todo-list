@@ -1,0 +1,29 @@
+
+#display-panel {
+    position: fixed;
+    @include position(0);
+
+    margin: auto;
+    padding: 15px;
+
+    width: 400px;
+    height: 600px;
+
+    color: whitesmoke;
+
+    background-color: #111;
+
+    .top-bar {
+        display: flex;
+        margin-bottom: 20px;
+
+        font-size: 18px;
+
+        .fa-times {
+            &:hover {
+                transform: scale(1.2);
+                cursor: pointer;
+            }
+        }
+    }
+}

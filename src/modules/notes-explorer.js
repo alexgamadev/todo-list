@@ -15,6 +15,7 @@ const NotesExplorer = (() => {
 
     function openTodo(todo) {
         if(isTodoOpen(todo)) {
+            selectTodo(todo);
             return;
         }
 
@@ -79,7 +80,7 @@ const NotesExplorer = (() => {
         return _openTodos.includes(todo) ? true : false;
     }
 
-    return {openTodo, closeTodo, selectTodo}
+    return {openTodo, closeTodo, selectTodo, isTodoOpen}
 })();
 
 export {NotesExplorer}

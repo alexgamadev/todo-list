@@ -12,21 +12,12 @@ function loadHome(appElement) {
     checklist1.set("Item 3", false);
     checklist1.set("Item 4", false);
     checklist1.set("Item 5", false);
-    checklist1.set("Item 6", false);
-    checklist1.set("Item 7", true);
-    checklist1.set("Item 8", false);
-    checklist1.set("Item 9", false);
-    checklist1.set("Item 10", false);
-    checklist1.set("Item 11", false);
-    checklist1.set("Item 12", true);
-    checklist1.set("Item 13", false);
-    checklist1.set("Item 14", false);
-    checklist1.set("Item 15", false);
     //Create some test projects and todo lists
     let newTodo = new TodoData("Boopy", "Hello I am a list!", checklist1);
     let newTodo2 = new TodoData("Hello I am a tab", "Hello I am a list 2!");
+    let newTodo3 = new TodoData("Seperate project todo", "I am a todo in a seperate project!", checklist1);
     let newProject = new ProjectData("Hi Kez", [newTodo, newTodo2]);
-    let newProject2 = new ProjectData("Boop", [newTodo2]);
+    let newProject2 = new ProjectData("Boop", [newTodo3]);
     
     //
     ProjectManager.addProject(newProject);

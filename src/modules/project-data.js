@@ -13,10 +13,6 @@ class ProjectData {
         return this._todos;
     }
 
-    get id() {
-        return this._id;
-    }
-
     get isEmpty() {
         return this._todos <= 0 ? true : false;
     }
@@ -25,12 +21,13 @@ class ProjectData {
         this._name = name;
     }
 
-    set id(id){
-        this._id = id;
+    addTodo(todo) {
+        this._todos.push(todo);
     }
 
-    addTodo(todo) {
-        this.todos.push(todo);
+    removeTodo(todo) {
+        let id = this._todos.indexOf(todo);
+        this._todos.splice(id, 1);
     }
 
     addTabDOM(tabDOM) {
