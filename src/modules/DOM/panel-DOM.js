@@ -51,7 +51,7 @@ export const PanelDOM = (() => {
         return panelContent;
     }
 
-    function createChecklistItem(list) {
+    function createChecklistItem(todo, list) {
         if(isPanelOpen()) {
             return;
         }
@@ -73,6 +73,7 @@ export const PanelDOM = (() => {
         btnCreate.classList.add("btn", "btn-success");
         btnCreate.innerText = "Create";
         btnCreate.addEventListener('click', () => {
+            todo.checklist.set(input.value, false);
             TodoEditorDOM.addChecklistItem(list, false, input.value);
             closePanel();
         });
