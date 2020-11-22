@@ -582,6 +582,7 @@ body {
   color: white;
   background-color: #3c3c3c;
   border-right: 1px solid #343434;
+  white-space: nowrap;
 }
 .tab span {
   margin-right: 10px;
