@@ -1,5 +1,7 @@
 import { NotesExplorer } from "../notes-explorer";
 import {ProjectManager} from "../project-manager";
+import {PanelDOM} from "./panel-DOM";
+
 import Utility from "../utils";
 
 const ProjectDOM = (() => {
@@ -113,12 +115,7 @@ const ProjectDOM = (() => {
         //Event listener to delete todo lists
         docCloseButton.addEventListener('click', ((e) => {
             e.stopPropagation();
-            //Get project containing todo
-            const project = ProjectManager.getProject(projectID);
-            //Close todo tab if open, remove todo from project and delete todo document link from project explorer
-            NotesExplorer.closeTodo(todo);
-            project.removeTodo(todo);
-            e.target.parentNode.remove();
+            PanelDOM.deleteTodoPanel(e.target, projectID, todo);
         }));
 
         docDiv.appendChild(docIcon);
@@ -132,7 +129,16 @@ const ProjectDOM = (() => {
         return docDiv;
     };
 
-    return {generateTab}
+    const deleteTodoLink = (target, projectID, todo) => {
+        //Get project containing todo
+        const project = ProjectManager.getProject(projectID);
+        //Close todo tab if open, remove todo from project and delete todo document link from project explorer
+        NotesExplorer.closeTodo(todo);
+        project.removeTodo(todo);
+        target.parentNode.remove();
+    }
+
+    return {generateTab, deleteTodoLink}
 })();
 
 export {ProjectDOM}

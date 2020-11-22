@@ -16,3 +16,24 @@ body {
 .align-right {
     margin-left: auto;
 }
+
+.btn {
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+
+    background-color: #ccc;
+    &.btn-success {
+        background-color: green;
+    }
+
+    &.btn-error {
+        background-color: red;
+    }
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
