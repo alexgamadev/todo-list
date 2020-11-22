@@ -86,9 +86,9 @@ const TodoEditorDOM = (() => {
 
         const addButton = Utility.CreateElementFromHTML(`<i class="fas fa-plus" aria-hidden="true"></i>`);
         addButton.addEventListener('click', () => {
-            PanelDOM.createPanel("Enter Checklist Item Title:", (input) => {
-                todo.checklist.set(input.value, false);
-                TodoEditorDOM.addChecklistItem(todo, list, false, input.value);
+            PanelDOM.createPanel("Enter Checklist Item Title:", (value) => {
+                todo.checklist.set(value, false);
+                TodoEditorDOM.addChecklistItem(todo, list, false, value);
             });
         });
 

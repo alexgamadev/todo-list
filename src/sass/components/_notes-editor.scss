@@ -67,7 +67,10 @@
             }
 
             &.checked {
-                text-decoration: line-through;
+                & > span {
+                    text-decoration: line-through;
+                }
+                
                 color: #6cff5b;
             }
 

@@ -650,8 +650,10 @@ body {
   background-color: #515151;
 }
 .checklist-container ul li.checked {
-  text-decoration: line-through;
   color: #6cff5b;
+}
+.checklist-container ul li.checked > span {
+  text-decoration: line-through;
 }
 .checklist-container ul li.unchecked {
   color: #ff4d2d;

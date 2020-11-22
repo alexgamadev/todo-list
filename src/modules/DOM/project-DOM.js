@@ -42,8 +42,8 @@ const ProjectDOM = (() => {
         addButton.classList.add("align-right");
         addButton.addEventListener('click', ((e) => {
             e.stopPropagation();
-            PanelDOM.createPanel("Enter todo title:", (input) => {
-                let newTodo = new TodoData(input.value, "");
+            PanelDOM.createPanel("Enter todo title:", (value) => {
+                let newTodo = new TodoData(value, "");
                 projectData.addTodo(newTodo); 
                 ProjectExplorer.loadProjects(ProjectManager.getProjects());
                 NotesExplorer.openTodo(newTodo);

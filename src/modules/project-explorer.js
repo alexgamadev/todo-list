@@ -1,7 +1,7 @@
 import { ProjectDOM } from "./DOM/project-DOM";
 import Utility from "./utils";
 
-const ProjectExplorer = (() => {
+export const ProjectExplorer = (() => {
     const explorerDiv = document.getElementById("project-explorer");
     
     function addTab(tab) {
@@ -27,5 +27,3 @@ const ProjectExplorer = (() => {
 
     return {loadProject, loadProjects}
 })();
-
-export {ProjectExplorer}

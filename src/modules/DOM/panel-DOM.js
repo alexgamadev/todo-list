@@ -68,7 +68,7 @@ export const PanelDOM = (() => {
         btnCreate.classList.add("btn", "btn-success");
         btnCreate.innerText = "Create";
         btnCreate.addEventListener('click', () => {
-            callback(input);
+            callback(input.value);
             closePanel();
         });
 
