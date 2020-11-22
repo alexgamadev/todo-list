@@ -619,6 +619,15 @@ body {
   flex: 1;
   padding: 0px;
 }
+.checklist-container .list-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.checklist-container .list-header .fa-plus:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
 .checklist-container ul {
   max-height: 400px;
   width: 80%;
