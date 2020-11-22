@@ -1,9 +1,4 @@
 import {ProjectDOM} from "./project-DOM";
-import {TodoEditorDOM} from "./todoeditor-DOM";
-import {TodoData} from "../todo-data";
-import {ProjectManager} from "../project-manager";
-import {ProjectExplorer} from "../project-explorer";
-import {NotesExplorer} from "../notes-explorer";
 import Utility from "../utils";
 
 export const PanelDOM = (() => {
@@ -14,7 +9,7 @@ export const PanelDOM = (() => {
     const panelContent = document.getElementById("panel-content");
 
 
-    function deleteTodoPanel(target, projectID, todo) {
+    function confirmationPanel(message, callback) {
         if(isPanelOpen()) {
             return;
         }
@@ -31,7 +26,7 @@ export const PanelDOM = (() => {
         btnDel.classList.add("btn", "btn-error");
         btnDel.innerText = "Delete";
         btnDel.addEventListener('click', () => {
-            ProjectDOM.deleteTodoLink(target, projectID, todo);
+            callback();
             closePanel();
         });
 
@@ -51,7 +46,7 @@ export const PanelDOM = (() => {
         return panelContent;
     }
 
-    function createChecklistItem(todo, list) {
+    function createPanel(message, callback) {
         if(isPanelOpen()) {
             return;
         }
@@ -60,7 +55,7 @@ export const PanelDOM = (() => {
         
         const label = document.createElement("label");
         label.classList.add("align-left");
-        label.innerText = "Enter Checklist Item Title:";
+        label.innerText = message;
 
         const input = document.createElement("input");
         input.type = "text";
@@ -73,55 +68,7 @@ export const PanelDOM = (() => {
         btnCreate.classList.add("btn", "btn-success");
         btnCreate.innerText = "Create";
         btnCreate.addEventListener('click', () => {
-            todo.checklist.set(input.value, false);
-            TodoEditorDOM.addChecklistItem(list, false, input.value);
-            closePanel();
-        });
-
-        const btnCancel = document.createElement("button");
-        btnCancel.classList.add("btn");
-        btnCancel.innerText = "Cancel";
-        btnCancel.addEventListener('click', ({target}) => {
-            closePanel();
-        });
-
-        btnsDiv.appendChild(btnCreate);
-        btnsDiv.appendChild(btnCancel);
-
-        panelContent.appendChild(label);
-        panelContent.appendChild(input);
-        panelContent.appendChild(btnsDiv);
-
-        return panelContent;
-    }
-
-    function createTodoPanel(projectId) {
-        if(isPanelOpen()) {
-            return;
-        }
-        panel.classList.add("info");
-        panel.classList.remove("hidden");
-        
-        const label = document.createElement("label");
-        label.classList.add("align-left");
-        label.innerText = "Enter Todo Title:";
-
-        const input = document.createElement("input");
-        input.type = "text";
-        input.placeholder = "Title";
-
-        const btnsDiv = document.createElement("div");
-        btnsDiv.classList.add("buttons");
-
-        const btnCreate = document.createElement("button");
-        btnCreate.classList.add("btn", "btn-success");
-        btnCreate.innerText = "Create";
-        btnCreate.addEventListener('click', () => {
-            let newTodo = new TodoData(input.value, "");
-            const project = ProjectManager.getProject(projectId);
-            project.addTodo(newTodo); 
-            ProjectExplorer.loadProjects(ProjectManager.getProjects());
-            NotesExplorer.openTodo(newTodo);
+            callback(input);
             closePanel();
         });
 
@@ -155,5 +102,5 @@ export const PanelDOM = (() => {
         Utility.RemoveChildNodes(panelContent);
     }
 
-    return {deleteTodoPanel, createTodoPanel, createChecklistItem}
+    return {confirmationPanel, createPanel}
 })();

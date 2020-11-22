@@ -86,12 +86,14 @@ const TodoEditorDOM = (() => {
 
         const addButton = Utility.CreateElementFromHTML(`<i class="fas fa-plus" aria-hidden="true"></i>`);
         addButton.addEventListener('click', () => {
-            PanelDOM.createChecklistItem(todo, list);
+            PanelDOM.createPanel("Enter Checklist Item Title:", (input) => {
+                todo.checklist.set(input.value, false);
+                TodoEditorDOM.addChecklistItem(todo, list, false, input.value);
+            });
         });
 
         listHeader.appendChild(listHeading);
         listHeader.appendChild(addButton);
-
 
         const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
         const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
@@ -99,7 +101,7 @@ const TodoEditorDOM = (() => {
         //If checklist exists and isn't empty
         if(todo.checklist?.size) {
             todo.checklist.forEach(function(value, item){
-                addChecklistItem(list, value, item);
+                addChecklistItem(todo, list, value, item);
             });
         }
 
@@ -109,7 +111,7 @@ const TodoEditorDOM = (() => {
         return listContainer;
     };
 
-    function addChecklistItem(list, value, item) {
+    function addChecklistItem(todo, list, value, item) {
         //Create list item for each item in the checklist
         const listItem = document.createElement("li");
         if(value) {
@@ -144,7 +146,24 @@ const TodoEditorDOM = (() => {
         //Add name of checklist item
         const text = document.createElement("span");
         text.innerText = item;
+
+        const deleteButton = Utility.CreateElementFromHTML(`<i class="fas fa-times" aria-hidden="true"></i>`);
+        deleteButton.classList.add("align-right");
+
+        //Event listener to delete todo lists
+        deleteButton.addEventListener('click', ((e) => {
+            e.stopPropagation();
+            PanelDOM.confirmationPanel("Are you sure you want to delete this item?", () => {
+                console.log(item);
+                console.log(todo.checklist);
+                todo.checklist.delete(item);
+                listItem.remove();
+            });
+        }));
+
         listItem.appendChild(text);
+        listItem.appendChild(deleteButton);
+
         list.appendChild(listItem);
     }
 

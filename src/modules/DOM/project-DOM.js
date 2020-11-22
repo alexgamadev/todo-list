@@ -1,5 +1,7 @@
 import { NotesExplorer } from "../notes-explorer";
 import {ProjectManager} from "../project-manager";
+import {ProjectExplorer} from "../project-explorer";
+import {TodoData} from "../todo-data";
 import {PanelDOM} from "./panel-DOM";
 
 import Utility from "../utils";
@@ -40,7 +42,12 @@ const ProjectDOM = (() => {
         addButton.classList.add("align-right");
         addButton.addEventListener('click', ((e) => {
             e.stopPropagation();
-            PanelDOM.createTodoPanel(projectData.id);
+            PanelDOM.createPanel("Enter todo title:", (input) => {
+                let newTodo = new TodoData(input.value, "");
+                projectData.addTodo(newTodo); 
+                ProjectExplorer.loadProjects(ProjectManager.getProjects());
+                NotesExplorer.openTodo(newTodo);
+            });
         }));
         
 
@@ -132,7 +139,9 @@ const ProjectDOM = (() => {
         //Event listener to delete todo lists
         docCloseButton.addEventListener('click', ((e) => {
             e.stopPropagation();
-            PanelDOM.deleteTodoPanel(e.target, projectID, todo);
+            PanelDOM.confirmationPanel("Are you sure you want to delete this todo?", () => {
+                deleteTodoLink(e.target, projectID, todo);
+            });
         }));
 
         docDiv.appendChild(docIcon);

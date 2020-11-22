@@ -3,7 +3,12 @@ class TodoData {
     constructor(title, notes, checklist){
         this._title = title;
         this._notes = notes;
-        this._checklist = checklist;
+        if(checklist) {
+            this._checklist = checklist;
+        } else {
+            this._checklist = new Map();
+        }
+        
     };
 
     get title() {

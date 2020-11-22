@@ -55,13 +55,11 @@
         background-color: #414141;
 
         li {
+            display: flex;
+
             padding: 10px;
             border-radius: 2px;
             border-bottom: 1px solid #393939;
-
-            i {
-                margin-right: 10px;
-            }
 
             &:hover {
                 cursor: pointer;
@@ -76,6 +74,20 @@
             &.unchecked {
                 color: $error;
             }
+
+            i {
+                margin-right: 10px;
+            }
+
+            .fa-times {
+                color: whitesmoke;
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+
+            @extend %noselect;
         }
     }
 }
