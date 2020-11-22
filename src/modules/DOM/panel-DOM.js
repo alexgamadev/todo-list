@@ -62,8 +62,8 @@ export const PanelDOM = (() => {
         label.innerText = "Enter Todo Title:";
 
         const input = document.createElement("input");
-        input.attributes["type"] = "text";
-        input.attributes["placeholder"] = "Title"
+        input.type = "text";
+        input.placeholder = "Title"
 
         const btnsDiv = document.createElement("div");
         btnsDiv.classList.add("buttons");
