@@ -1,4 +1,5 @@
 import Utility from "../utils";
+import {PanelDOM} from "./panel-DOM"
 
 const TodoEditorDOM = (() => {
     /*=============================================
@@ -75,10 +76,22 @@ const TodoEditorDOM = (() => {
 
         listContainer.classList.add("checklist-container");
 
+        const listHeader = document.createElement("div");
+        listHeader.classList.add("list-header");
+    
         const listHeading = document.createElement("h3");
         listHeading.innerText = "Checklist";
 
         const list = document.createElement("ul");
+
+        const addButton = Utility.CreateElementFromHTML(`<i class="fas fa-plus" aria-hidden="true"></i>`);
+        addButton.addEventListener('click', () => {
+            PanelDOM.createChecklistItem(list);
+        });
+
+        listHeader.appendChild(listHeading);
+        listHeader.appendChild(addButton);
+
 
         const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
         const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
@@ -86,53 +99,56 @@ const TodoEditorDOM = (() => {
         //If checklist exists and isn't empty
         if(todo.checklist?.size) {
             todo.checklist.forEach(function(value, item){
-
-                //Create list item for each item in the checklist
-                const listItem = document.createElement("li");
-                if(value) {
-                    listItem.classList.add("checked");
-                    const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
-                    listItem.appendChild(checkIcon);
-                } else {
-                    listItem.classList.add("unchecked");
-                    const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
-                    listItem.appendChild(crossIcon);
-                }
-
-                //Toggle checklist item and save value
-                listItem.addEventListener("click", (function({currentTarget}){
-                    let classList = currentTarget.classList;
-                    const icon = currentTarget.querySelector(".item-icon");
-                    if(classList.contains("checked")) {
-                        classList.remove("checked");
-                        classList.add("unchecked");
-                        icon.classList.remove("fa-check-circle");
-                        icon.classList.add("fa-times-circle");
-                        todo.checklist.set(item, false);
-                    } else if (classList.contains("unchecked")) {
-                        classList.remove("unchecked");
-                        classList.add("checked");
-                        icon.classList.add("fa-check-circle");
-                        icon.classList.remove("fa-times-circle");
-                        todo.checklist.set(item, true);
-                    }
-                }));
-
-                //Add name of checklist item
-                const text = document.createElement("span");
-                text.innerText = item;
-                listItem.appendChild(text);
-                list.appendChild(listItem);
+                addChecklistItem(list, value, item);
             });
         }
 
-        listContainer.appendChild(listHeading);
+        listContainer.appendChild(listHeader);
         listContainer.appendChild(list);
 
         return listContainer;
     };
 
-    return {generateEditor, clearEditor};
+    function addChecklistItem(list, value, item) {
+        //Create list item for each item in the checklist
+        const listItem = document.createElement("li");
+        if(value) {
+            listItem.classList.add("checked");
+            const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
+            listItem.appendChild(checkIcon);
+        } else {
+            listItem.classList.add("unchecked");
+            const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
+            listItem.appendChild(crossIcon);
+        }
+
+        //Toggle checklist item and save value
+        listItem.addEventListener("click", (function({currentTarget}){
+            let classList = currentTarget.classList;
+            const icon = currentTarget.querySelector(".item-icon");
+            if(classList.contains("checked")) {
+                classList.remove("checked");
+                classList.add("unchecked");
+                icon.classList.remove("fa-check-circle");
+                icon.classList.add("fa-times-circle");
+                todo.checklist.set(item, false);
+            } else if (classList.contains("unchecked")) {
+                classList.remove("unchecked");
+                classList.add("checked");
+                icon.classList.add("fa-check-circle");
+                icon.classList.remove("fa-times-circle");
+                todo.checklist.set(item, true);
+            }
+        }));
+
+        //Add name of checklist item
+        const text = document.createElement("span");
+        text.innerText = item;
+        listItem.appendChild(text);
+        list.appendChild(listItem);
+    }
+
+    return {generateEditor, clearEditor, addChecklistItem};
 })();
 
 export {TodoEditorDOM};
