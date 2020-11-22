@@ -389,7 +389,7 @@ body {
 /* ==================================================================
     Utils
 ================================================================== */
-.tab, .todo-doc, .project-title, .new-project, .logo {
+.checklist-container ul li, .tab, .todo-doc, .project-title, .new-project, .logo {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -640,12 +640,10 @@ body {
   background-color: #414141;
 }
 .checklist-container ul li {
+  display: flex;
   padding: 10px;
   border-radius: 2px;
   border-bottom: 1px solid #393939;
-}
-.checklist-container ul li i {
-  margin-right: 10px;
 }
 .checklist-container ul li:hover {
   cursor: pointer;
@@ -657,6 +655,15 @@ body {
 }
 .checklist-container ul li.unchecked {
   color: #ff4d2d;
+}
+.checklist-container ul li i {
+  margin-right: 10px;
+}
+.checklist-container ul li .fa-times {
+  color: whitesmoke;
+}
+.checklist-container ul li .fa-times:hover {
+  transform: scale(1.2);
 }
 
 #notes-details {
