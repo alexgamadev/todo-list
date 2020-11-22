@@ -644,4 +644,27 @@ body {
   border: 1px solid #555;
 }
 
+#display-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  padding: 15px;
+  width: 400px;
+  height: 600px;
+  color: whitesmoke;
+  background-color: #111;
+}
+#display-panel .top-bar {
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+#display-panel .top-bar .fa-times:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=main.css.map */
