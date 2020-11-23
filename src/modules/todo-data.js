@@ -4,7 +4,7 @@ class TodoData {
         this._title = title;
         this._notes = notes;
         this._checklist = checklist;
-        this._priority = 0;
+        this._priority = "0";
         
     };
 
@@ -18,16 +18,17 @@ class TodoData {
 
     get priority() {
         switch(this._priority) {
-            case 0: 
-                return "None";
-            case 1: 
-                return "Low";
-            case 2:
-                return "Medium";
-            case 3:
-                return "High";
+            case "0": 
+                return "none";
+            case "1": 
+                return "low";
+            case "2":
+                return "medium";
+            case "3":
+                return "high";
             default:
-                return "Invalid";
+                console.log("get " + this._priority);
+                return "invalid";
         }
     }
 
@@ -46,6 +47,7 @@ class TodoData {
     set priority(priority) {
         //Only alow priority between 0 and 3
         if(priority >= 0 && priority <= 3) {
+            console.log("Here");
             this._priority = priority;
         }
     }

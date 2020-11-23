@@ -42,22 +42,46 @@ const TodoEditorDOM = (() => {
         details.innerHTML = `<div>
             <h3>Due Date</h3>
             <input type="date" class="due-date">
-            <div id="priority-title">
-                <h3>Priority:</h3>
-                <h3 class="priority-medium">Medium</h3>
-            </div>
-            <div id="priority-selection">
-                <button class="priority-high tooltip">
-                    <span class="tooltiptext">High</span>
-                </button>
-                <button class="priority-medium tooltip">
-                    <span class="tooltiptext">Medium</span>
-                </button>
-                <button class="priority-low tooltip">
-                    <span class="tooltiptext">Low</span>
-                </button>
-            </div>
             </div>`
+
+        const priorityTitle = document.createElement("div");
+        priorityTitle.id = "priority-title"
+        priorityTitle.appendChild(Utility.CreateElementFromHTML("<h3>Priority:</h3>"));
+        
+        const priorityMessage = document.createElement("h3");
+        updatePriorityLabel(priorityMessage, todo.priority);
+
+        priorityTitle.appendChild(priorityMessage);
+
+        const prioritySelect = document.createElement("div");
+        prioritySelect.id = "priority-selection";
+
+        prioritySelect.innerHTML = 
+        `
+            <button class="priority-high tooltip" data-priority="3">
+                <span class="tooltiptext">High</span>
+            </button>
+            <button class="priority-medium tooltip" data-priority="2">
+                <span class="tooltiptext">Medium</span>
+            </button>
+            <button class="priority-low tooltip" data-priority="1">
+                <span class="tooltiptext">Low</span>
+            </button>
+        `;
+
+        const priorityBtns = prioritySelect.querySelectorAll(".tooltip");
+        priorityBtns.forEach((button) => {
+            button.addEventListener('click', ({target}) => {
+                const priority = target.attributes["data-priority"].value;
+                todo.priority = priority;
+                updatePriorityLabel(priorityMessage, todo.priority);
+            });
+        });
+
+        details.appendChild(priorityTitle);
+        details.appendChild(prioritySelect);
+
+        console.log(priorityTitle);
 
         return details;
     };
@@ -178,6 +202,13 @@ const TodoEditorDOM = (() => {
         listItem.appendChild(deleteButton);
 
         list.appendChild(listItem);
+    }
+
+    function updatePriorityLabel(priorityLabel, priority) {
+        console.log(priority);
+        priorityLabel.classList.remove(...priorityLabel.classList);
+        priorityLabel.classList.add(`priority-${priority}`);
+        priorityLabel.innerText = priority;
     }
 
     return {generateEditor, clearEditor, addChecklistItem};

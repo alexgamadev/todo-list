@@ -713,6 +713,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-transform: capitalize;
 }
 #priority-title .priority-high {
   color: #ff4d2d;
