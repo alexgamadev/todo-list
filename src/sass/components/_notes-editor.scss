@@ -71,7 +71,7 @@
                     text-decoration: line-through;
                 }
                 
-                color: #6cff5b;
+                color: $success;
             }
 
             &.unchecked {
@@ -109,5 +109,53 @@
         background-color: #444;
         color: whitesmoke;
         border: 1px solid #555;
+    }
+}
+
+#priority-selection {
+    display: flex;
+    gap: 10px;
+    button {
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+
+        border: none;
+        background-color: yellow;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        &.priority-high {
+            background-color: $error;
+        }
+
+        .priority-medium {
+            background-color: yellow;
+        }
+
+        &.priority-low {
+            background-color: $success;
+        }
+    }
+}
+
+#priority-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    .priority-high {
+        color: $error;
+    }
+
+    .priority-medium {
+        color: #f8f86c;
+    }
+
+    .priority-low {
+        color: $success;
     }
 }
