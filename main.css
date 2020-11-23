@@ -583,6 +583,7 @@ body {
   background-color: #3c3c3c;
   border-right: 1px solid #343434;
   white-space: nowrap;
+  overflow: none;
 }
 .tab span {
   margin-right: 10px;
@@ -651,7 +652,7 @@ body {
   background-color: #515151;
 }
 .checklist-container ul li.checked {
-  color: #6cff5b;
+  color: limegreen;
 }
 .checklist-container ul li.checked > span {
   text-decoration: line-through;
@@ -681,6 +682,46 @@ body {
   background-color: #444;
   color: whitesmoke;
   border: 1px solid #555;
+}
+
+#priority-selection {
+  display: flex;
+  gap: 10px;
+}
+#priority-selection button {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border: none;
+  background-color: yellow;
+}
+#priority-selection button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+#priority-selection button.priority-high {
+  background-color: #ff4d2d;
+}
+#priority-selection button .priority-medium {
+  background-color: yellow;
+}
+#priority-selection button.priority-low {
+  background-color: limegreen;
+}
+
+#priority-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#priority-title .priority-high {
+  color: #ff4d2d;
+}
+#priority-title .priority-medium {
+  color: #f8f86c;
+}
+#priority-title .priority-low {
+  color: limegreen;
 }
 
 #display-panel {
@@ -738,6 +779,41 @@ body {
   display: flex;
   justify-content: center;
   gap: 1rem;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #111 transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 /*# sourceMappingURL=main.css.map */
