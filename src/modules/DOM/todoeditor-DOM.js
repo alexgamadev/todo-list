@@ -1,3 +1,5 @@
+import { ProjectExplorer } from "../project-explorer";
+import { ProjectManager } from "../project-manager";
 import Utility from "../utils";
 import {PanelDOM} from "./panel-DOM"
 
@@ -75,6 +77,7 @@ const TodoEditorDOM = (() => {
                 const priority = target.attributes["data-priority"].value;
                 todo.priority = priority;
                 updatePriorityLabel(priorityMessage, todo.priority);
+                ProjectExplorer.loadProjects(ProjectManager.getProjects());
             });
         });
 
@@ -191,8 +194,6 @@ const TodoEditorDOM = (() => {
         deleteButton.addEventListener('click', ((e) => {
             e.stopPropagation();
             PanelDOM.confirmationPanel("Are you sure you want to delete this item?", () => {
-                console.log(item);
-                console.log(todo.checklist);
                 todo.checklist.delete(item);
                 listItem.remove();
             });

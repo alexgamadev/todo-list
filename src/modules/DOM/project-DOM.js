@@ -126,6 +126,9 @@ const ProjectDOM = (() => {
         docDiv.classList.add("todo-doc");
         docDiv.attributes["data-project-id"] = projectID;
 
+        const priorityIcon = document.createElement("div");
+        priorityIcon.classList.add("priority-icon", todo.priority);
+
         const docIcon = document.createElement("i");
         docIcon.classList.add("far");
         docIcon.classList.add("fa-file-alt");
@@ -144,6 +147,7 @@ const ProjectDOM = (() => {
             });
         }));
 
+        docDiv.appendChild(priorityIcon);
         docDiv.appendChild(docIcon);
         docDiv.appendChild(docTitle);
         docDiv.appendChild(docCloseButton);

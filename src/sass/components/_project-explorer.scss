@@ -59,13 +59,14 @@
     overflow: hidden;
     white-space: nowrap;
 
-    color: #aaa;
+    color: white;
+    opacity: 0.8;
 
     @extend %noselect;
 
     &:hover {
         cursor: pointer;
-        color: #ddd;
+        opacity: 1;
     }
 
     i {
@@ -80,4 +81,26 @@
         }
     }
     
+}
+
+.priority-icon {
+	width: 10px;
+	height: 10px;
+    border-radius: 50%;
+
+    &.low {
+        background-color: $success;
+    }
+    
+    &.medium {
+        background-color: $medium-priority;
+    }
+
+    &.high {
+        background-color: $error;
+    }
+
+    &.none {
+        background-color: $text-hovered;
+    }
 }

@@ -121,7 +121,6 @@
         height: 25px;
 
         border: none;
-        background-color: yellow;
 
         &:hover {
             cursor: pointer;
@@ -132,8 +131,8 @@
             background-color: $error;
         }
 
-        .priority-medium {
-            background-color: yellow;
+        &.priority-medium {
+            background-color: $medium-priority;
         }
 
         &.priority-low {
@@ -144,17 +143,21 @@
 
 #priority-title {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 10px;
 
     text-transform: capitalize;
+
+    h3:last-child {
+        font-size: 16px;
+    }
     
     .priority-high {
         color: $error;
     }
 
     .priority-medium {
-        color: #f8f86c;
+        color: $medium-priority;
     }
 
     .priority-low {

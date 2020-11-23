@@ -556,11 +556,12 @@ body {
   gap: 10px;
   overflow: hidden;
   white-space: nowrap;
-  color: #aaa;
+  color: white;
+  opacity: 0.8;
 }
 .todo-doc:hover {
   cursor: pointer;
-  color: #ddd;
+  opacity: 1;
 }
 .todo-doc i {
   font-size: 12px;
@@ -571,6 +572,24 @@ body {
 .todo-doc .fa-times:hover {
   transform: scale(1.1);
   color: white;
+}
+
+.priority-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.priority-icon.low {
+  background-color: limegreen;
+}
+.priority-icon.medium {
+  background-color: orange;
+}
+.priority-icon.high {
+  background-color: #ff4d2d;
+}
+.priority-icon.none {
+  background-color: #ccc;
 }
 
 .tab {
@@ -693,7 +712,6 @@ body {
   width: 25px;
   height: 25px;
   border: none;
-  background-color: yellow;
 }
 #priority-selection button:hover {
   cursor: pointer;
@@ -702,8 +720,8 @@ body {
 #priority-selection button.priority-high {
   background-color: #ff4d2d;
 }
-#priority-selection button .priority-medium {
-  background-color: yellow;
+#priority-selection button.priority-medium {
+  background-color: orange;
 }
 #priority-selection button.priority-low {
   background-color: limegreen;
@@ -711,15 +729,18 @@ body {
 
 #priority-title {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 10px;
   text-transform: capitalize;
+}
+#priority-title h3:last-child {
+  font-size: 16px;
 }
 #priority-title .priority-high {
   color: #ff4d2d;
 }
 #priority-title .priority-medium {
-  color: #f8f86c;
+  color: orange;
 }
 #priority-title .priority-low {
   color: limegreen;
