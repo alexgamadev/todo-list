@@ -116,6 +116,7 @@ const ProjectDOM = (() => {
     }
 
     const loadTodoDocLinks = (listContainer, projectID, todos) => {
+        console.log("ltdl");
         todos.forEach(todo => {
             listContainer.appendChild(generateTodoDocLink(projectID, todo));
         });

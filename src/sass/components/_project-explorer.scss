@@ -69,6 +69,10 @@
         opacity: 1;
     }
 
+    span {
+        overflow: hidden;
+    }
+
     i {
         font-size: 12px;
     }
@@ -84,8 +88,8 @@
 }
 
 .priority-icon {
-	width: 10px;
-	height: 10px;
+	min-width: 10px;
+	min-height: 10px;
     border-radius: 50%;
 
     &.low {

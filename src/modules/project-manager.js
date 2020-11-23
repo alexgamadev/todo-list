@@ -1,3 +1,6 @@
+import {ProjectData} from "./project-data";
+import {TodoData} from "./todo-data";
+
 const ProjectManager = (() => {
     let _projects = [];
     
@@ -18,7 +21,20 @@ const ProjectManager = (() => {
         return _projects;
     }
 
-    return {addProject, getProject, getProjects, getNum}
+    function loadProjects(projects) {
+        _projects = [];
+        projects.forEach(project => {
+            const newProj = ProjectData.fromObject(project);
+            const newTodos = [];
+            newProj.todos.forEach((todo) => {
+                newTodos.push(TodoData.fromObject(todo));
+            });
+            newProj.loadTodos(newTodos);
+            addProject(newProj);
+        });
+    }
+
+    return {addProject, getProject, getProjects, getNum, loadProjects}
 })();
 
 export {ProjectManager}

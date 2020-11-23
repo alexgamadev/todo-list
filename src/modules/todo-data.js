@@ -44,6 +44,10 @@ class TodoData {
         this._notes = notes;
     };
 
+    set checklist(checklist) {
+        this._checklist = checklist;
+    }
+
     set priority(priority) {
         //Only alow priority between 0 and 3
         if(priority >= 0 && priority <= 3) {
@@ -59,6 +63,12 @@ class TodoData {
     removeChecklistItem(item) {
         _checklist.remove(item);
     }
+
+    static fromObject(object) {
+        object.checklist = new Map(JSON.parse(object._checklist));
+        return Object.assign(new TodoData(), object);
+    }
+
 }
 
 export {TodoData};

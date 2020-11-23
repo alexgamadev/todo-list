@@ -1,6 +1,6 @@
 
 class ProjectData {
-    constructor(name, todos){
+    constructor(name = "", todos = []){
         this._name = name;
         this._todos = todos;
         this._isOpen = false;
@@ -34,6 +34,10 @@ class ProjectData {
         this._todos.push(todo);
     }
 
+    loadTodos(todos) {
+        this._todos = todos;
+    }
+
     removeTodo(todo) {
         let id = this._todos.indexOf(todo);
         this._todos.splice(id, 1);
@@ -45,6 +49,10 @@ class ProjectData {
 
     get tabDOM() {
         return this._tabDOM;
+    }
+
+    static fromObject(object) {
+        return Object.assign(new ProjectData(), object);
     }
 }
 

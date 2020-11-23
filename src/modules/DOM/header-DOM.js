@@ -15,5 +15,4 @@ export const HeaderDOM = (() => {
             ProjectExplorer.loadProject(newProject);
         });
     });
-    console.log(newProjBtn);
 })();
