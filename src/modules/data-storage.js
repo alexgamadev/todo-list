@@ -1,15 +1,15 @@
 import { ProjectManager } from "./project-manager";
 import { TodoData } from "./todo-data"; 
+import { ProjectData } from "./project-data";
 
 export default class DataStorage {
     /* Saved data to local storage*/
     static SaveData() {
         //Get all projects
         const projects = ProjectManager.getProjects();
-
         //Iterate through projects to convert any necessary objects to JSON
-        projects.forEach((project) => {
-            project.todos.forEach((todo) => {
+        projects?.forEach((project) => {
+            project.todos?.forEach((todo) => {
                 todo.checklist = JSON.stringify(Array.from(todo.checklist.entries()));
             });
         });
@@ -20,8 +20,23 @@ export default class DataStorage {
 
     /* Load saved data from previous visits to site */
     static LoadData() {
+        const projects = JSON.parse(localStorage.getItem("Projects"));
+        const convertedProjs = [];
+        projects?.forEach(project => {
+            const newProj = ProjectData.fromObject(project);
+            const newTodos = [];
+
+            //Covert generic todo objects into actual todo data
+            newProj.todos?.forEach((todo) => {
+                newTodos.push(TodoData.fromObject(todo));
+            });
+
+            newProj.loadTodos(newTodos);
+            convertedProjs.push(newProj);
+        });
+
         //Get JSON data from local storage and convert back to normal projects
-        return JSON.parse(localStorage.getItem("Projects"));
+        return convertedProjs;
     }
 
 

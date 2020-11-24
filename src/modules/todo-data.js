@@ -72,8 +72,8 @@ class TodoData {
 
     /* Convert generic object to TodoData */
     static fromObject(object) {
-        object.checklist = new Map(JSON.parse(object._checklist));
-        object.dueDate = parseJSON(object._dueDate);
+        object._checklist = new Map(JSON.parse(object._checklist));
+        object._dueDate = parseJSON(object._dueDate);
         return Object.assign(new TodoData(), object);
     }
 

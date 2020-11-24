@@ -27,18 +27,8 @@ const ProjectManager = (() => {
         _projects = [];
 
         //Covert generic project objects into actual project data
-        projects.forEach(project => {
-            const newProj = ProjectData.fromObject(project);
-            const newTodos = [];
-
-            //Covert generic todo objects into actual todo data
-            newProj.todos.forEach((todo) => {
-                newTodos.push(TodoData.fromObject(todo));
-            });
-
-            //Add all converted todos to the project and add to project manager
-            newProj.loadTodos(newTodos);
-            addProject(newProj);
+        projects?.forEach(project => {
+            addProject(project);
         });
     }
 

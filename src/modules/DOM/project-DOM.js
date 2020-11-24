@@ -9,6 +9,7 @@ import Utility from "../utils";
 const ProjectDOM = (() => {
 
     const generateTab = (projectData) => {
+        console.log(projectData);
         //Create project tab container and add attribute with ID
         const projectTab = document.createElement("div");
         projectTab.classList.add("project-container");
@@ -130,7 +131,7 @@ const ProjectDOM = (() => {
     }
 
     const loadTodoDocLinks = (listContainer, projectID, todos) => {
-        todos.forEach(todo => {
+        todos?.forEach(todo => {
             listContainer.appendChild(generateTodoDocLink(projectID, todo));
         });
     };
