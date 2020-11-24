@@ -1,5 +1,5 @@
 import { ProjectManager } from "./project-manager";
-import {TodoData} from "./todo-data"; 
+import { TodoData } from "./todo-data"; 
 
 export default class DataStorage {
     /* Saved data to local storage*/

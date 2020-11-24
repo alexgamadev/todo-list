@@ -76,7 +76,7 @@ const TodoEditorDOM = (() => {
             //Get difference between inputed date and current date
             const difference = differenceInDays(selectedDate, new Date());
             //If selected date is in the future show the time until it
-            if(difference > 0) {
+            if(difference >= 0) {
                 dateHeading.innerText = `Due Date (Due in ${formatDistanceToNow(selectedDate)})`;
             } else {
                 dateHeading.innerText = `Due Date (Overdue)`;
@@ -84,7 +84,7 @@ const TodoEditorDOM = (() => {
         });
         /* =============================== */
 
-        
+
         /* ===== Priority Selection ===== */
         const priorityTitle = document.createElement("div");
         priorityTitle.id = "priority-title"
