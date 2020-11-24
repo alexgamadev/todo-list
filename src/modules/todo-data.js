@@ -1,3 +1,4 @@
+import { parseJSON } from 'date-fns';
 
 class TodoData {
     constructor(title, notes, checklist = new Map()){
@@ -5,7 +6,6 @@ class TodoData {
         this._notes = notes;
         this._checklist = checklist;
         this._priority = "0";
-        
     };
 
     get title() {
@@ -27,7 +27,6 @@ class TodoData {
             case "3":
                 return "high";
             default:
-                console.log("get " + this._priority);
                 return "invalid";
         }
     }
@@ -35,6 +34,10 @@ class TodoData {
     get checklist() {
         return this._checklist;
     };
+
+    get dueDate() {
+        return this._dueDate;
+    }
 
     set title(title) {
         this._title = title;
@@ -48,10 +51,13 @@ class TodoData {
         this._checklist = checklist;
     }
 
+    set dueDate(dueDate) {
+        this._dueDate = dueDate;
+    }
+
     set priority(priority) {
         //Only alow priority between 0 and 3
         if(priority >= 0 && priority <= 3) {
-            console.log("Here");
             this._priority = priority;
         }
     }
@@ -66,6 +72,7 @@ class TodoData {
 
     static fromObject(object) {
         object.checklist = new Map(JSON.parse(object._checklist));
+        object.dueDate = parseJSON(object._dueDate);
         return Object.assign(new TodoData(), object);
     }
 

@@ -9,7 +9,6 @@ export const HeaderDOM = (() => {
 
     newProjBtn.addEventListener('click', () => {
         PanelDOM.createPanel("Enter name of new project:", (value) => {
-            console.log(value)
             let newProject = new ProjectData(value, []);
             ProjectManager.addProject(newProject);
             ProjectExplorer.loadProject(newProject);

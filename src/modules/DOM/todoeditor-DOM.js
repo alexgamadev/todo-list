@@ -1,7 +1,8 @@
 import { ProjectExplorer } from "../project-explorer";
 import { ProjectManager } from "../project-manager";
 import Utility from "../utils";
-import {PanelDOM} from "./panel-DOM"
+import {PanelDOM} from "./panel-DOM";
+import { toDate, parseISO, differenceInDays, formatDistanceToNow, isValid, format} from 'date-fns';
 
 const TodoEditorDOM = (() => {
     /*=============================================
@@ -40,11 +41,39 @@ const TodoEditorDOM = (() => {
         //Find details container
         const details = document.getElementById("notes-details");
 
-        //Placeholder details
-        details.innerHTML = `<div>
-            <h3>Due Date</h3>
-            <input type="date" class="due-date">
-            </div>`
+        const dateTitle = document.createElement("div");
+        dateTitle.id = "date-title";
+
+        let dateHeading = document.createElement("h3");
+        if(isValid(todo.dueDate)) {
+            if(differenceInDays(todo.dueDate, new Date()) > 0) {
+                dateHeading.innerText = `Due Date (Due in ${formatDistanceToNow(todo.dueDate)})`;
+            } else {
+                dateHeading.innerText = `Due Date (Overdue)`;
+            }
+        } else {
+            dateHeading.innerText = "Due Date";
+        }
+        
+
+        dateTitle.appendChild(dateHeading);
+
+        const dateInput = document.createElement("input")
+        dateInput.type = "date";
+        dateInput.classList.add("due-date");
+        if(isValid(todo.dueDate)) {
+            dateInput.value = format(todo.dueDate, "yyyy-MM-dd");
+        }
+        dateInput.addEventListener("change", ({target}) => {
+            const selectedDate = toDate(parseISO(target.value));
+            todo.dueDate = selectedDate;
+            const difference = differenceInDays(selectedDate, new Date());
+            if(difference > 0) {
+                dateHeading.innerText = `Due Date (Due in ${formatDistanceToNow(selectedDate)})`;
+            } else {
+                dateHeading.innerText = `Due Date (Overdue)`;
+            }
+        });
 
         const priorityTitle = document.createElement("div");
         priorityTitle.id = "priority-title"
@@ -81,10 +110,10 @@ const TodoEditorDOM = (() => {
             });
         });
 
+        details.appendChild(dateTitle);
+        details.appendChild(dateInput);
         details.appendChild(priorityTitle);
         details.appendChild(prioritySelect);
-
-        console.log(priorityTitle);
 
         return details;
     };
@@ -101,7 +130,6 @@ const TodoEditorDOM = (() => {
         textArea.value = todo.notes;
 
         textArea.addEventListener("focusout", function(){
-            console.log(textArea.value);
             todo.notes = textArea.value;
         });
 
@@ -206,7 +234,6 @@ const TodoEditorDOM = (() => {
     }
 
     function updatePriorityLabel(priorityLabel, priority) {
-        console.log(priority);
         priorityLabel.classList.remove(...priorityLabel.classList);
         priorityLabel.classList.add(`priority-${priority}`);
         priorityLabel.innerText = priority;
