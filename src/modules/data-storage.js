@@ -30,7 +30,7 @@ export default class DataStorage {
         let checklist1 = new Map();
         checklist1.set("You", false);
         checklist1.set("Can", true);
-        checklist1.set("Check", false);
+        checklist1.set("Click", false);
         checklist1.set("These", false);
         checklist1.set("Items", false);
 

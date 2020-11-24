@@ -5,9 +5,7 @@ import {PanelDOM} from "./panel-DOM";
 import { toDate, parseISO, differenceInDays, formatDistanceToNow, isValid, format} from 'date-fns';
 
 const TodoEditorDOM = (() => {
-    /*=============================================
-    Generate Editor Content and Clear Editor Content
-    ===============================================*/
+    /* Generate both the content and details sections of the editor */
     const generateEditor = (todo) => {
         const editor = document.getElementById("notes-editor");
 
@@ -15,8 +13,8 @@ const TodoEditorDOM = (() => {
         editor.appendChild(generateDetails(todo));
     };
 
+    /* Clear both the content and details sections of the editor */
     const clearEditor = () => {
-        //Find content container
         const content = document.getElementById("notes-content");
         Utility.RemoveChildNodes(content);
 
@@ -25,9 +23,9 @@ const TodoEditorDOM = (() => {
     }
 
     const generateContent = (todo) => {
-        //Find content container
         const content = document.getElementById("notes-content");
 
+        //Create description element and checklist element
         const notesContainer = createNotesContainer(todo);
         const listContainer = createChecklistContainer(todo);
         
@@ -38,43 +36,56 @@ const TodoEditorDOM = (() => {
     };
 
     const generateDetails = (todo) => {
-        //Find details container
         const details = document.getElementById("notes-details");
 
+        /* ===== Due Date Section ===== */
         const dateTitle = document.createElement("div");
         dateTitle.id = "date-title";
 
         let dateHeading = document.createElement("h3");
+        //If todo has a valid due date then display time until it
         if(isValid(todo.dueDate)) {
-            if(differenceInDays(todo.dueDate, new Date()) > 0) {
+            //If due date is in future display time until due date else display overdue 
+            if(differenceInDays(todo.dueDate, new Date()) >= 0) {
                 dateHeading.innerText = `Due Date (Due in ${formatDistanceToNow(todo.dueDate)})`;
             } else {
                 dateHeading.innerText = `Due Date (Overdue)`;
             }
-        } else {
+        }
+        else {
             dateHeading.innerText = "Due Date";
         }
         
-
         dateTitle.appendChild(dateHeading);
+
 
         const dateInput = document.createElement("input")
         dateInput.type = "date";
         dateInput.classList.add("due-date");
+
+        //If todo has a value due date then set the date input to that date
         if(isValid(todo.dueDate)) {
             dateInput.value = format(todo.dueDate, "yyyy-MM-dd");
         }
+
         dateInput.addEventListener("change", ({target}) => {
+            //Get date inputed
             const selectedDate = toDate(parseISO(target.value));
             todo.dueDate = selectedDate;
+
+            //Get difference between inputed date and current date
             const difference = differenceInDays(selectedDate, new Date());
+            //If selected date is in the future show the time until it
             if(difference > 0) {
                 dateHeading.innerText = `Due Date (Due in ${formatDistanceToNow(selectedDate)})`;
             } else {
                 dateHeading.innerText = `Due Date (Overdue)`;
             }
         });
+        /* =============================== */
 
+        
+        /* ===== Priority Selection ===== */
         const priorityTitle = document.createElement("div");
         priorityTitle.id = "priority-title"
         priorityTitle.appendChild(Utility.CreateElementFromHTML("<h3>Priority:</h3>"));
@@ -110,6 +121,8 @@ const TodoEditorDOM = (() => {
             });
         });
 
+        /* =============================== */
+
         details.appendChild(dateTitle);
         details.appendChild(dateInput);
         details.appendChild(priorityTitle);
@@ -140,41 +153,48 @@ const TodoEditorDOM = (() => {
     };
 
     const createChecklistContainer = (todo) => {
+        /* Generate DOM elements */
         const listContainer = document.createElement("div");
-
         listContainer.classList.add("checklist-container");
 
+        /* ===== Checklist header ===== */
         const listHeader = document.createElement("div");
         listHeader.classList.add("list-header");
     
-        const listHeading = document.createElement("h3");
-        listHeading.innerText = "Checklist";
+        const listTitle = document.createElement("h3");
+        listTitle.innerText = "Checklist";
+
+        const addButton = Utility.CreateElementFromHTML(`<i class="fas fa-plus" aria-hidden="true"></i>`);
+
+        listHeader.appendChild(listTitle);
+        listHeader.appendChild(addButton);
+        /* =========================== */
 
         const list = document.createElement("ul");
 
-        const addButton = Utility.CreateElementFromHTML(`<i class="fas fa-plus" aria-hidden="true"></i>`);
+        /* ===== Checklist Items ====== */
+        const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
+        const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
+        
+        //If checklist exists and isn't empty
+        if(todo.checklist?.size) {
+            //Go through todo checklist and generate elements for each item
+            todo.checklist.forEach(function(value, item){
+                addChecklistItem(todo, list, value, item);
+            });
+        }
+        /* ============================ */
+
+        listContainer.appendChild(listHeader);
+        listContainer.appendChild(list);
+
+        /* Event Listeners */
         addButton.addEventListener('click', () => {
             PanelDOM.createPanel("Enter Checklist Item Title:", (value) => {
                 todo.checklist.set(value, false);
                 TodoEditorDOM.addChecklistItem(todo, list, false, value);
             });
         });
-
-        listHeader.appendChild(listHeading);
-        listHeader.appendChild(addButton);
-
-        const checkIcon = Utility.CreateElementFromHTML(`<i class="fas fa-check-circle item-icon"></i>`);
-        const crossIcon = Utility.CreateElementFromHTML(`<i class="fas fa-times-circle item-icon"></i>`);
-        
-        //If checklist exists and isn't empty
-        if(todo.checklist?.size) {
-            todo.checklist.forEach(function(value, item){
-                addChecklistItem(todo, list, value, item);
-            });
-        }
-
-        listContainer.appendChild(listHeader);
-        listContainer.appendChild(list);
 
         return listContainer;
     };
@@ -197,16 +217,26 @@ const TodoEditorDOM = (() => {
             let classList = currentTarget.classList;
             const icon = currentTarget.querySelector(".item-icon");
             if(classList.contains("checked")) {
+                //Element styling
                 classList.remove("checked");
                 classList.add("unchecked");
+
+                //Icon styling
                 icon.classList.remove("fa-check-circle");
                 icon.classList.add("fa-times-circle");
+
+                //Save value
                 todo.checklist.set(item, false);
             } else if (classList.contains("unchecked")) {
+                //Element styling
                 classList.remove("unchecked");
                 classList.add("checked");
+
+                //Icon styling
                 icon.classList.add("fa-check-circle");
                 icon.classList.remove("fa-times-circle");
+
+                //Save value
                 todo.checklist.set(item, true);
             }
         }));
@@ -233,6 +263,7 @@ const TodoEditorDOM = (() => {
         list.appendChild(listItem);
     }
 
+    //Apply styling to priority label dependent on todo priority value
     function updatePriorityLabel(priorityLabel, priority) {
         priorityLabel.classList.remove(...priorityLabel.classList);
         priorityLabel.classList.add(`priority-${priority}`);
