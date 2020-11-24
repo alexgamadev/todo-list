@@ -6,7 +6,6 @@ import DataStorage from "./data-storage";
 function loadHome(appElement) {
     //Called when window is first loaded
     window.addEventListener("load", function() {
-        localStorage.clear();
         const projects = DataStorage.LoadData();
 
         //If there is any data stored in local storage load it else load mock data
