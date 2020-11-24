@@ -1,40 +1,28 @@
-import { ProjectData } from "./project-data"
-import { TodoData } from "./todo-data";
 import { ProjectExplorer } from "./project-explorer";
 import { ProjectManager } from "./project-manager";
 import DataStorage from "./data-storage";
 
 
 function loadHome(appElement) {
+    //Called when window is first loaded
     window.addEventListener("load", function() {
         const projects = DataStorage.LoadData();
+
+        //If there is any data stored in local storage load it else load mock data
         if(projects?.length > 0) {
             ProjectManager.loadProjects(projects);
         } else {
-            generateMockData();
+            ProjectManager.loadProjects(DataStorage.LoadMockData());
         }
         //Generate project tabs
         ProjectExplorer.loadProjects(ProjectManager.getProjects());
+        
     }, false); 
 
+    //Just before site is unloaded, save any necesary data to local storage
     window.addEventListener("unload", function() {
         DataStorage.SaveData();
     }, false);
-
-    function generateMockData() {
-        let checklist1 = new Map();
-        checklist1.set("You", false);
-        checklist1.set("Can", true);
-        checklist1.set("Check", false);
-        checklist1.set("These", false);
-        checklist1.set("Items", false);
-
-        //Create some test projects and todo lists
-        let newTodo = new TodoData("Example Todo", "Write a description here!", checklist1);
-        let newProject = new ProjectData("Default Project", [newTodo]);
-        
-        ProjectManager.addProject(newProject);
-    }
 }
 
 

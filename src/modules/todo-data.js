@@ -70,6 +70,7 @@ class TodoData {
         _checklist.remove(item);
     }
 
+    /* Convert generic object to TodoData */
     static fromObject(object) {
         object.checklist = new Map(JSON.parse(object._checklist));
         object.dueDate = parseJSON(object._dueDate);

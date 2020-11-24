@@ -43,14 +43,7 @@ class ProjectData {
         this._todos.splice(id, 1);
     }
 
-    addTabDOM(tabDOM) {
-        this._tabDOM = tabDOM;
-    }
-
-    get tabDOM() {
-        return this._tabDOM;
-    }
-
+    /* Convert generic object to ProjectData */
     static fromObject(object) {
         return Object.assign(new ProjectData(), object);
     }

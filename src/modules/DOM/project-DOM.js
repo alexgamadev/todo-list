@@ -7,11 +7,9 @@ import {PanelDOM} from "./panel-DOM";
 import Utility from "../utils";
 
 const ProjectDOM = (() => {
-    /*=============================================
-    Create tab, delete tab, get tab, add todo, update todo, remove todo
-    ===============================================*/
+
     const generateTab = (projectData) => {
-        //Create project tab container
+        //Create project tab container and add attribute with ID
         const projectTab = document.createElement("div");
         projectTab.classList.add("project-container");
         projectTab.attributes["data-projectId"] = projectData.id;
@@ -19,6 +17,8 @@ const ProjectDOM = (() => {
         //Create container for title elements
         const projectTitle = document.createElement("div");
         projectTitle.classList.add("project-title");
+
+        //If project tab was already open then make sure it's open by default 
         if(!projectData.isOpen) {
             projectTitle.classList.add("unselected");
         } else {
@@ -40,16 +40,24 @@ const ProjectDOM = (() => {
 
         const addButton = Utility.CreateElementFromHTML(`<i class="fas fa-plus" aria-hidden="true"></i>`);
         addButton.classList.add("align-right");
+
+        // Functionality to create new todo
         addButton.addEventListener('click', ((e) => {
+            //Prevent any parent event listeners from being called
             e.stopPropagation();
+            //Open panel to enter todo title
             PanelDOM.createPanel("Enter todo title:", (value) => {
+                //Create new empty todo with entered title and add to project
                 let newTodo = new TodoData(value, "");
                 projectData.addTodo(newTodo); 
+
+                //Reload project explorer to display new todo
                 ProjectExplorer.loadProjects(ProjectManager.getProjects());
+
+                //Open newly created todo 
                 NotesExplorer.openTodo(newTodo);
             });
         }));
-        
 
         //Add arrow and title to container
         projectTitle.appendChild(arrow);
@@ -60,57 +68,63 @@ const ProjectDOM = (() => {
         const listContainer = document.createElement("div");
         listContainer.classList.add("list-container");
 
+        //If project was already open then open list of todos by default
         if(projectData.isOpen) {
             listContainer.classList.add("opened");
         } else {
             listContainer.classList.add("closed");
         }
 
-        //Generate 
+        //Generate the clickable links for each todo in the project 
         loadTodoDocLinks(listContainer, projectData.id, projectData.todos);
  
+        //Toggle for project tab to open and close it when clicked
         projectTitle.addEventListener('click', (({currentTarget}) => {
             toggleSelected(currentTarget.parentNode, projectData);
         }));
 
-        /* ================================================================== */
-
-        //Fill project container
         projectTab.appendChild(projectTitle);
         projectTab.appendChild(listContainer);
-
-        projectData.addTabDOM(projectTab);
 
         return projectTab;
     };
 
     const toggleSelected = (projectTab, projectData) => {
-        let projectTitle = projectTab.children[0];
 
+        let projectTitle = projectTab.children[0];
         let classList = projectTitle.classList;
 
-        if(classList.contains("unselected")) {
+        //Toggle stylings when project selected or not
+        if(classList.contains("unselected")) { 
+            //Project title styling
             classList.remove("unselected");
             classList.add("selected");
 
-            //Move to own functions
+            //Project arrow styling
             projectTitle.children[0].classList.remove("fa-angle-right");
             projectTitle.children[0].classList.add("fa-angle-down");
+
+            //List container styling
             projectTab.children[1].classList.remove("closed");
             projectTab.children[1].classList.add("opened");
 
+            //Store selected state of project
             projectData.isOpen = true;
         }
         else if(classList.contains("selected")) {
+            //Project title styling
             classList.add("unselected");
             classList.remove("selected");
 
-            //Move to own functions
+            //Project arrow styling
             projectTitle.children[0].classList.add("fa-angle-right");
             projectTitle.children[0].classList.remove("fa-angle-down");
+
+            //List container styling
             projectTab.children[1].classList.remove("opened");
             projectTab.children[1].classList.add("closed"); 
 
+            //Store selected state of project
             projectData.isOpen = false;
         }
     }
