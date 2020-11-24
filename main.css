@@ -704,6 +704,7 @@ body {
   background-color: #444;
   color: whitesmoke;
   border: 1px solid #555;
+  width: 60%;
 }
 
 #priority-selection {
