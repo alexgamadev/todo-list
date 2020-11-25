@@ -1,28 +1,33 @@
-import { ProjectDOM } from "./DOM/project-DOM";
-import Utility from "./utils";
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-use-before-define */
 
-export const ProjectExplorer = (() => {
-    const explorerDiv = document.getElementById("project-explorer");
+import ProjectDOM from './DOM/project-DOM';
+import Utility from './utils';
 
-    function loadProject(project) {
-        const projTab = ProjectDOM.generateTab(project);
-        explorerDiv.appendChild(projTab);
-    }
+const ProjectExplorer = (() => {
+  const explorerDiv = document.getElementById('project-explorer');
 
-    function loadProjects(projects) {
-        //Clear all project tabs
-        clearProjects();
+  function loadProject(project) {
+    const projTab = ProjectDOM.generateTab(project);
+    explorerDiv.appendChild(projTab);
+  }
 
-        //Generate new tabs for each project and add to explorer
-        projects.forEach(project => {
-            const projTab = ProjectDOM.generateTab(project);
-            explorerDiv.appendChild(projTab);
-        });
-    }
+  function loadProjects(projects) {
+    // Clear all project tabs
+    clearProjects();
 
-    function clearProjects() {
-        Utility.RemoveChildNodes(explorerDiv);
-    }
+    // Generate new tabs for each project and add to explorer
+    projects.forEach((project) => {
+      const projTab = ProjectDOM.generateTab(project);
+      explorerDiv.appendChild(projTab);
+    });
+  }
 
-    return {loadProject, loadProjects}
+  function clearProjects() {
+    Utility.RemoveChildNodes(explorerDiv);
+  }
+
+  return { loadProject, loadProjects };
 })();
+
+export default ProjectExplorer;

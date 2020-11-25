@@ -1,7 +1,5 @@
-import {loadHome} from "./modules/home";
-import {HeaderDOM} from "./modules/DOM/header-DOM";
+import loadHome from './modules/home';
 
-const appElement = document.getElementById("app");
+const appElement = document.getElementById('app');
 
 loadHome(appElement);
-
